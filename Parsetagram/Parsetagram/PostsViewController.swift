@@ -13,6 +13,7 @@ class PostsViewController: UIViewController {
     
     var posts:[PFObject]!
     @IBOutlet weak var postsTableView: UITableView!
+    var refreshControl:UIRefreshControl!
     
     func queryPosts() {
         let query = PFQuery(className: "Post")
@@ -32,15 +33,27 @@ class PostsViewController: UIViewController {
                 }
             }
         }
+        self.refreshControl.endRefreshing()
     }
     
     override func viewDidLoad() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        postsTableView.insertSubview(refreshControl, atIndex: 0)
+        
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
-
+//        postsTableView.estimatedRowHeight = 100
+//        postsTableView.rowHeight = UITableViewAutomaticDimension
         
         queryPosts()
+    }
+    
+    func refreshAction(refreshControl: UIRefreshControl) {
+        print("will refresh")
+        queryPosts()
+        print("refreshed")
     }
 
 }
@@ -48,7 +61,7 @@ class PostsViewController: UIViewController {
 extension PostsViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if let posts = posts {
-            return min(posts.count, 20)
+            return posts.count
         } else {
             return 0
         }
@@ -60,6 +73,27 @@ extension PostsViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
         headerView.post = Post.PFObject2Post(posts[section])
+//        headerView.addConstraints([
+//            NSLayoutConstraint(
+//                item: headerView,
+//                attribute: .Leading,
+//                relatedBy: .Equal,
+//                toItem: headerView,
+//                attribute: .Leading,
+//                multiplier: 1.0,
+//                constant: 0),
+//            NSLayoutConstraint(
+//                item: headerView,
+//                attribute: .Trailing,
+//                relatedBy: .Equal,
+//                toItem: headerView,
+//                attribute: .Trailing,
+//                multiplier: 1.0,
+//                constant: 0)
+//            
+//            ])
+        // headerView.backgroundColor
+        
         return headerView
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

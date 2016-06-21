@@ -276,6 +276,7 @@
                                                     <constraints>
                                                         <constraint firstItem="eLk-1Q-JIX" firstAttribute="top" secondItem="JCK-mz-6VQ" secondAttribute="top" id="Dsi-YA-Vnr"/>
                                                         <constraint firstItem="Gfn-bb-Ry3" firstAttribute="top" secondItem="eLk-1Q-JIX" secondAttribute="bottom" id="aln-VU-Tm8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Gfn-bb-Ry3" secondAttribute="bottom" id="hOr-GI-E1Q"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
