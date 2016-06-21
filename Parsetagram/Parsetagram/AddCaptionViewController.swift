@@ -10,17 +10,17 @@ import UIKit
 
 class AddCaptionViewController: UIViewController {
 
-    var selectedImage: UIImage!
+    var selectedImage: UIImage! 
+    
     @IBOutlet weak var selectedImageView: UIImageView!
     
     @IBOutlet weak var captionField: UITextField!
     
     override func viewDidLoad() {
-         super.viewDidLoad()
-        
-        selectedImageView.image = selectedImage
+        super.viewDidLoad()
+        selectedImageView.clipsToBounds = true
         selectedImageView.contentMode = .Redraw
-        
+        selectedImageView.image = selectedImage
     }
     
     @IBAction func tappedPostButton(sender: AnyObject) {

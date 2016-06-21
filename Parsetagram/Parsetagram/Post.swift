@@ -12,11 +12,20 @@ import Parse
 
 class Post: NSObject {
     var image: PFFile!
+    var timestamp: String!
     var cap: String?
     var author: PFUser!
     
     init(image: PFFile, cap: String?, author: PFUser) {
         self.image = image
+        self.timestamp = "timestamp"
+        self.cap = cap
+        self.author = author
+    }
+    
+    init(image: PFFile, timestamp:String, cap: String?, author: PFUser) {
+        self.image = image
+        self.timestamp = timestamp
         self.cap = cap
         self.author = author
     }
@@ -62,11 +71,18 @@ class Post: NSObject {
     }
     
     class func PFObject2Post(object: PFObject) -> Post {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM dd"
+        let timeFormatter = NSDateFormatter()
+        timeFormatter.timeStyle = .ShortStyle
+        
         let image = object["media"] as! PFFile
+        let date = object.createdAt
+        let timestamp = dateFormatter.stringFromDate(date!) + " at " + timeFormatter.stringFromDate(date!)
         let cap = object["caption"] as? String
         let author = object["author"] as! PFUser
         
-        return Post(image: image, cap: cap, author: author)
+        return Post(image: image, timestamp: timestamp, cap: cap, author: author)
     }
     
 }

@@ -9,11 +9,12 @@
 import UIKit
 import Parse
 
-class PostsViewController: UIViewController {
+class PostsViewController: UIViewController, UIScrollViewDelegate {
     
     var posts:[PFObject]!
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
+    var isLoadingMore:Bool = false
     
     func queryPosts() {
         let query = PFQuery(className: "Post")
@@ -34,6 +35,7 @@ class PostsViewController: UIViewController {
             }
         }
         self.refreshControl.endRefreshing()
+        isLoadingMore = false
     }
     
     override func viewDidLoad() {
@@ -56,6 +58,33 @@ class PostsViewController: UIViewController {
         print("refreshed")
     }
 
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (!isLoadingMore) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = postsTableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - postsTableView.bounds.size.height
+            
+            if (scrollView.contentOffset.y > scrollOffsetThreshold && postsTableView.dragging) {
+                isLoadingMore = true
+                
+                // TODO Code to load more results ...
+            }
+            
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if segue.identifier == "postDetails" {
+            if let cell = sender as? PostTableViewCell {
+                let indexPath = postsTableView.indexPathForCell(cell)
+                let vc = segue.destinationViewController as! PostDetailsViewController
+                vc.post = Post.PFObject2Post(posts[indexPath!.section])
+            }
+            
+        }
+    }
 }
 
 extension PostsViewController : UITableViewDataSource {
@@ -98,11 +127,16 @@ extension PostsViewController : UITableViewDataSource {
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
-        cell.post = Post.PFObject2Post(posts[indexPath.row])
+        cell.post = Post.PFObject2Post(posts[indexPath.section])
         return cell
+    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
     }
 }
 
 extension PostsViewController : UITableViewDelegate {
     
 }
+

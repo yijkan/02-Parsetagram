@@ -18,6 +18,7 @@
 		896FCF711D19A77A0002C7CD /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF701D19A77A0002C7CD /* EditViewController.swift */; };
 		896FCF731D19A7A50002C7CD /* AddCaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */; };
 		896FCF751D19DE920002C7CD /* PostTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */; };
+		896FCF771D19F8EC0002C7CD /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */; };
 		898E84C81D1882B900D7A9A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898E84C71D1882B900D7A9A7 /* AppDelegate.swift */; };
 		898E84CD1D1882B900D7A9A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 898E84CB1D1882B900D7A9A7 /* Main.storyboard */; };
 		898E84CF1D1882B900D7A9A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898E84CE1D1882B900D7A9A7 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		896FCF701D19A77A0002C7CD /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCaptionViewController.swift; sourceTree = "<group>"; };
 		896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewHeader.swift; sourceTree = "<group>"; };
+		896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
 		898E84C41D1882B900D7A9A7 /* Parsetagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parsetagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898E84C71D1882B900D7A9A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		898E84CC1D1882B900D7A9A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				896FCF6E1D18C1570002C7CD /* NewViewController.swift */,
 				896FCF701D19A77A0002C7CD /* EditViewController.swift */,
 				896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */,
+				896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				896FCF731D19A7A50002C7CD /* AddCaptionViewController.swift in Sources */,
 				896FCF711D19A77A0002C7CD /* EditViewController.swift in Sources */,
 				896FCF641D18A8F80002C7CD /* ProfileViewController.swift in Sources */,
+				896FCF771D19F8EC0002C7CD /* PostDetailsViewController.swift in Sources */,
 				896FCF5D1D18A3570002C7CD /* PostsViewController.swift in Sources */,
 				896FCF5A1D1894F20002C7CD /* LoginViewController.swift in Sources */,
 				896FCF6B1D18BC150002C7CD /* PostTableViewCell.swift in Sources */,
