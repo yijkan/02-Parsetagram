@@ -37,4 +37,6 @@ class Post: NSObject {
         // Save object (following function will save the object in Parse asynchronously)
         post.saveInBackgroundWithBlock(completion)
     }
+    
+    
 }
