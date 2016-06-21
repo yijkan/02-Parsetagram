@@ -7,7 +7,23 @@
 //
 
 import UIKit
+import ParseUI
 
 class PostTableViewCell : UITableViewCell {
     
+    @IBOutlet weak var postImageView: PFImageView!
+    @IBOutlet weak var captionLabel: UILabel!
+    
+    var post:Post! {
+        didSet {
+            self.postImageView.file = post.image
+            self.postImageView.loadInBackground()
+            
+            if let caption = post.cap {
+                self.captionLabel.text = caption
+            } else {
+                self.captionLabel.hidden = true
+            }
+        }
+    }
 }

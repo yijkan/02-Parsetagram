@@ -11,6 +11,28 @@ import AFNetworking
 import Parse
 
 class Post: NSObject {
+    var image: PFFile!
+    var cap: String?
+    var author: PFUser!
+    
+    init(image: PFFile, cap: String?, author: PFUser) {
+        self.image = image
+        self.cap = cap
+        self.author = author
+    }
+    
+    class func resizeImage(image: UIImage, newSize: CGSize) -> UIImage {
+        let resizeImageView = UIImageView(frame: CGRectMake(0, 0, newSize.width, newSize.height))
+        resizeImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        resizeImageView.image = image
+        
+        UIGraphicsBeginImageContext(resizeImageView.frame.size)
+        resizeImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     class func getPFFileFromImage(image: UIImage?) -> PFFile? {
         // check if image is not nil
         if let image = image {
@@ -23,7 +45,8 @@ class Post: NSObject {
     }
     
     class func postImage(image: UIImage?, withCaption caption: String?,
-                   withCompletion completion:PFBooleanResultBlock?) {
+                         withCompletion completion:PFBooleanResultBlock?) {
+//        let image = resizeImage(image!, newSize: CGSize(width:100, height:100)) // TODO
         // Create Parse object PFObject
         let post = PFObject(className: "Post")
         
@@ -38,5 +61,12 @@ class Post: NSObject {
         post.saveInBackgroundWithBlock(completion)
     }
     
+    class func PFObject2Post(object: PFObject) -> Post {
+        let image = object["media"] as! PFFile
+        let cap = object["caption"] as? String
+        let author = object["author"] as! PFUser
+        
+        return Post(image: image, cap: cap, author: author)
+    }
     
 }

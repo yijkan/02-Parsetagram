@@ -19,16 +19,26 @@ class AddCaptionViewController: UIViewController {
          super.viewDidLoad()
         
         selectedImageView.image = selectedImage
+        selectedImageView.contentMode = .Redraw
+        
     }
     
     @IBAction func tappedPostButton(sender: AnyObject) {
+        
         Post.postImage(selectedImage, withCaption: captionField.text) { (success: Bool, error: NSError?) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else {
                 print("successfully posted image")
-                // TODO segue here
+                self.performSegueWithIdentifier("posted", sender: sender)
             }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if segue.identifier == "posted" {
+            (segue as! CustomSegue).animationType = .SwipeDown
         }
     }
     
