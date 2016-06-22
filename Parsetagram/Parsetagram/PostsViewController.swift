@@ -14,21 +14,21 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     var posts:[PFObject]!
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
+    var loadCount = 1
     var isLoadingMore:Bool = false
     
     func queryPosts() {
+        print("querying")
         let query = PFQuery(className: "Post")
         query.orderByDescending("createdAt")
         query.includeKey("author")
         query.includeKey("username")
-        query.limit = 20
+        query.limit = 2 * loadCount // TODO change this back
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else {
-                print("no errors querying")
                 if let objects = objects {
-                    print("retrieved posts")
                     self.posts = objects
                     self.postsTableView.reloadData()
                 }
@@ -46,6 +46,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        // TODO this breaks everything Dx (don't display correctly)
 //        postsTableView.estimatedRowHeight = 100
 //        postsTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -53,9 +54,8 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
-        print("will refresh")
+        loadCount = 1
         queryPosts()
-        print("refreshed")
     }
 
     
@@ -69,6 +69,8 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
                 isLoadingMore = true
                 
                 // TODO Code to load more results ...
+                loadCount += 1
+                queryPosts()
             }
             
         }
@@ -101,7 +103,7 @@ extension PostsViewController : UITableViewDataSource {
     }
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
-        headerView.post = Post.PFObject2Post(posts[section])
+        var post = Post.PFObject2Post(posts[section])
 //        headerView.addConstraints([
 //            NSLayoutConstraint(
 //                item: headerView,
@@ -122,6 +124,9 @@ extension PostsViewController : UITableViewDataSource {
 //            
 //            ])
         // headerView.backgroundColor
+        let authorLabel = UILabel()
+        authorLabel.text = post.author.username
+        headerView.addSubview(authorLabel)
         
         return headerView
     }
