@@ -12,7 +12,6 @@ import Parse
 func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void) {
     var query:PFQuery!
     
-    // TODO not working. could filter the array after loading but that sounds like a bad idea
     if !loadAll {
         let predicate = NSPredicate(format:"author = %@", PFUser.currentUser()!)
         query = PFQuery(className: "Post", predicate: predicate)
