@@ -125,7 +125,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="352.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KdN-s6-lA6">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KdN-s6-lA6" customClass="PFImageView">
                                                     <rect key="frame" x="8" y="8" width="584" height="269"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="269" id="xnJ-Td-5Zx"/>
@@ -147,6 +147,10 @@
                                                 <constraint firstItem="KdN-s6-lA6" firstAttribute="leading" secondItem="bgF-7h-oCP" secondAttribute="leadingMargin" id="veh-eo-JXk"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="captionLabel" destination="1Y8-vY-vbt" id="22b-xR-A8j"/>
+                                            <outlet property="postImageView" destination="KdN-s6-lA6" id="K49-KH-kj2"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

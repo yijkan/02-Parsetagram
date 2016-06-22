@@ -19,15 +19,14 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     var loadingMoreView:InfiniteScrollActivityView?
     
     func queryPosts() {
-        let postsResult = utilQuery(loadCount, completion: { () in
-            self.refreshControl.endRefreshing()
-            self.isLoadingMore = false
-            self.loadingMoreView!.stopAnimating()
-        })
-        
-        if postsResult != nil {
+        utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
+            self.posts = posts
             self.postsTableView.reloadData()
-        }
+        })
+        self.refreshControl.endRefreshing()
+        self.isLoadingMore = false
+        self.loadingMoreView!.stopAnimating()
+
     }
     
     override func viewDidLoad() {
@@ -37,7 +36,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         
         postsTableView.dataSource = self
         postsTableView.delegate = self
-        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        postsTableView.registerClass(PostTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         
         // TODO this breaks everything Dx (don't display correctly)
 //        postsTableView.estimatedRowHeight = 100
@@ -110,15 +109,42 @@ extension PostsViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return PostsTableViewDataSource.headerView(tableView, section: section, posts: posts)
+        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeaderView
+        let post = Post.PFObject2Post(posts[section])
+        //        headerView.addConstraints([
+        //            NSLayoutConstraint(
+        //                item: headerView,
+        //                attribute: .Leading,
+        //                relatedBy: .Equal,
+        //                toItem: headerView,
+        //                attribute: .Leading,
+        //                multiplier: 1.0,
+        //                constant: 0),
+        //            NSLayoutConstraint(
+        //                item: headerView,
+        //                attribute: .Trailing,
+        //                relatedBy: .Equal,
+        //                toItem: headerView,
+        //                attribute: .Trailing,
+        //                multiplier: 1.0,
+        //                constant: 0)
+        //
+        //            ])
+        // headerView.backgroundColor
+        let authorLabel = UILabel()
+        authorLabel.text = post.author.username
+        headerView.addSubview(authorLabel)
+        
+        return headerView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return PostsTableViewDataSource.cellForIndexPath(tableView, indexPath: indexPath, posts: posts)
+        let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
+        cell.post = Post.PFObject2Post(posts[indexPath.section])
+        return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
     }
 }
 

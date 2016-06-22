@@ -16,11 +16,11 @@ class PostTableViewCell : UITableViewCell {
     
     var post:Post! {
         didSet {
-            postImageView.clipsToBounds = true
-            postImageView.contentMode = .ScaleAspectFit
-            
             self.postImageView.file = post.image
             self.postImageView.loadInBackground()
+            
+            postImageView.clipsToBounds = true
+            postImageView.contentMode = .ScaleAspectFit
             
             if let caption = post.cap {
                 self.captionLabel.text = caption

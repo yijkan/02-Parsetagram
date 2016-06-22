@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class PostTableViewHeader : UITableViewHeaderFooterView {
+class PostTableViewHeaderView : UITableViewHeaderFooterView {
     var post:Post! {
         didSet {
             print("set header's post")
