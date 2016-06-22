@@ -10,7 +10,7 @@ import UIKit
 
 class AddCaptionViewController: UIViewController {
 
-    var selectedImage: UIImage! 
+    var selectedImage: UIImage!
     
     @IBOutlet weak var selectedImageView: UIImageView!
     
@@ -19,11 +19,15 @@ class AddCaptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         selectedImageView.clipsToBounds = true
-        selectedImageView.contentMode = .Redraw
+        selectedImageView.contentMode = .ScaleAspectFit
         selectedImageView.image = selectedImage
     }
     
+    @IBAction func onTap(sender: AnyObject) {
+        view.endEditing(true)
+    }
     @IBAction func tappedPostButton(sender: AnyObject) {
+        view.endEditing(true)
         
         Post.postImage(selectedImage, withCaption: captionField.text) { (success: Bool, error: NSError?) in
             if let error = error {

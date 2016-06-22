@@ -16,6 +16,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     var refreshControl:UIRefreshControl!
     var loadCount = 1
     var isLoadingMore:Bool = false
+    var loadingMoreView:InfiniteScrollActivityView?
     
     func queryPosts() {
         print("querying")
@@ -36,6 +37,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         }
         self.refreshControl.endRefreshing()
         isLoadingMore = false
+        self.loadingMoreView!.stopAnimating()
     }
     
     override func viewDidLoad() {
@@ -49,6 +51,15 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         // TODO this breaks everything Dx (don't display correctly)
 //        postsTableView.estimatedRowHeight = 100
 //        postsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        postsTableView.addSubview(loadingMoreView!)
+        
+        var insets = postsTableView.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        postsTableView.contentInset = insets
         
         queryPosts()
     }
@@ -67,6 +78,10 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
             
             if (scrollView.contentOffset.y > scrollOffsetThreshold && postsTableView.dragging) {
                 isLoadingMore = true
+            
+                let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
                 
                 // TODO Code to load more results ...
                 loadCount += 1

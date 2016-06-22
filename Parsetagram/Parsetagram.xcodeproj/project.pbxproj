@@ -19,6 +19,7 @@
 		896FCF731D19A7A50002C7CD /* AddCaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */; };
 		896FCF751D19DE920002C7CD /* PostTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */; };
 		896FCF771D19F8EC0002C7CD /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */; };
+		896FCF791D1A0EEA0002C7CD /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF781D1A0EEA0002C7CD /* InfiniteScrollActivityView.swift */; };
 		898E84C81D1882B900D7A9A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898E84C71D1882B900D7A9A7 /* AppDelegate.swift */; };
 		898E84CD1D1882B900D7A9A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 898E84CB1D1882B900D7A9A7 /* Main.storyboard */; };
 		898E84CF1D1882B900D7A9A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898E84CE1D1882B900D7A9A7 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCaptionViewController.swift; sourceTree = "<group>"; };
 		896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewHeader.swift; sourceTree = "<group>"; };
 		896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
+		896FCF781D1A0EEA0002C7CD /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		898E84C41D1882B900D7A9A7 /* Parsetagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parsetagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898E84C71D1882B900D7A9A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		898E84CC1D1882B900D7A9A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				896FCF6A1D18BC150002C7CD /* PostTableViewCell.swift */,
 				896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */,
+				896FCF781D1A0EEA0002C7CD /* InfiniteScrollActivityView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				TargetAttributes = {
 					898E84C31D1882B900D7A9A7 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = KETJGF22R4;
 					};
 				};
 			};
@@ -275,6 +279,7 @@
 				896FCF5A1D1894F20002C7CD /* LoginViewController.swift in Sources */,
 				896FCF6B1D18BC150002C7CD /* PostTableViewCell.swift in Sources */,
 				896FCF751D19DE920002C7CD /* PostTableViewHeader.swift in Sources */,
+				896FCF791D1A0EEA0002C7CD /* InfiniteScrollActivityView.swift in Sources */,
 				896FCF621D18A7FD0002C7CD /* MainTabBarController.swift in Sources */,
 				896FCF661D18B4F90002C7CD /* CustomSegue.swift in Sources */,
 				896FCF6F1D18C1570002C7CD /* NewViewController.swift in Sources */,
@@ -393,10 +398,13 @@
 			baseConfigurationReference = A7E484278EC2408C0648355F /* Pods-Parsetagram.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Parsetagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FBUCodePath.Parsetagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -405,10 +413,13 @@
 			baseConfigurationReference = C50F421A7E0095BE43C35BD1 /* Pods-Parsetagram.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Parsetagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FBUCodePath.Parsetagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

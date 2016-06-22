@@ -15,6 +15,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameLabel: UITextField!
     @IBOutlet weak var passwordLabel: UITextField!
     
+    @IBAction func onTap(sender: AnyObject) {
+        view.endEditing(true)
+    }
+    
     @IBAction func didTapSignIn(sender: AnyObject) {
         let username = usernameLabel.text ?? ""
         let password = passwordLabel.text ?? ""

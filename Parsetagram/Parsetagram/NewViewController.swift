@@ -20,7 +20,7 @@ class NewViewController: UIViewController {
     @IBAction func tappedCameraButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
-        vc.allowsEditing = true
+//        vc.allowsEditing = true
         vc.sourceType = UIImagePickerControllerSourceType.Camera
         
         self.presentViewController(vc, animated: true, completion: nil)
@@ -29,7 +29,7 @@ class NewViewController: UIViewController {
     @IBAction func tappedCameraRollButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
-        vc.allowsEditing = true
+//        vc.allowsEditing = true
         vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
         self.presentViewController(vc, animated: true, completion: nil)
@@ -41,7 +41,7 @@ class NewViewController: UIViewController {
         
         if segue.identifier == "selectedImage" {
             let vc = segue.destinationViewController as! AddCaptionViewController
-            vc.selectedImage = sender as! UIImage
+            vc.selectedImage = selectedImage
         }
     }
 }
@@ -72,14 +72,15 @@ extension NewViewController : UIImagePickerControllerDelegate {
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // Get the image captured by the UIImagePickerController
         let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+//        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
         
         // Do something with the images (based on your use case)
-        selectedImage = editedImage
+//        selectedImage = editedImage
+        selectedImage = originalImage
         
         // Dismiss UIImagePickerController to go back to your original view controller
         dismissViewControllerAnimated(true, completion: {
-            self.performSegueWithIdentifier("selectedImage", sender: editedImage)
+            self.performSegueWithIdentifier("selectedImage", sender: nil)
         })
     }
     

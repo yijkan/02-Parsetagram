@@ -17,7 +17,7 @@ class PostTableViewCell : UITableViewCell {
     var post:Post! {
         didSet {
             postImageView.clipsToBounds = true
-            postImageView.contentMode = .Redraw
+            postImageView.contentMode = .ScaleAspectFit
             
             self.postImageView.file = post.image
             self.postImageView.loadInBackground()
