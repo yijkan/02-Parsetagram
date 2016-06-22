@@ -19,25 +19,15 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     var loadingMoreView:InfiniteScrollActivityView?
     
     func queryPosts() {
-        print("querying")
-        let query = PFQuery(className: "Post")
-        query.orderByDescending("createdAt")
-        query.includeKey("author")
-        query.includeKey("username")
-        query.limit = 2 * loadCount // TODO change this back
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            } else {
-                if let objects = objects {
-                    self.posts = objects
-                    self.postsTableView.reloadData()
-                }
-            }
+        let postsResult = utilQuery(loadCount, completion: { () in
+            self.refreshControl.endRefreshing()
+            self.isLoadingMore = false
+            self.loadingMoreView!.stopAnimating()
+        })
+        
+        if postsResult != nil {
+            self.postsTableView.reloadData()
         }
-        self.refreshControl.endRefreshing()
-        isLoadingMore = false
-        self.loadingMoreView!.stopAnimating()
     }
     
     override func viewDidLoad() {
@@ -48,6 +38,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        
         // TODO this breaks everything Dx (don't display correctly)
 //        postsTableView.estimatedRowHeight = 100
 //        postsTableView.rowHeight = UITableViewAutomaticDimension
@@ -70,6 +61,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     }
 
     
+    /***** For Infinite Scroll *****/
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (!isLoadingMore) {
             // Calculate the position of one screen length before the bottom of the results
@@ -93,7 +85,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == "postDetails" {
+        if segue.identifier == "postDetails" { // view post details
             if let cell = sender as? PostTableViewCell {
                 let indexPath = postsTableView.indexPathForCell(cell)
                 let vc = segue.destinationViewController as! PostDetailsViewController
@@ -116,39 +108,13 @@ extension PostsViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
-        var post = Post.PFObject2Post(posts[section])
-//        headerView.addConstraints([
-//            NSLayoutConstraint(
-//                item: headerView,
-//                attribute: .Leading,
-//                relatedBy: .Equal,
-//                toItem: headerView,
-//                attribute: .Leading,
-//                multiplier: 1.0,
-//                constant: 0),
-//            NSLayoutConstraint(
-//                item: headerView,
-//                attribute: .Trailing,
-//                relatedBy: .Equal,
-//                toItem: headerView,
-//                attribute: .Trailing,
-//                multiplier: 1.0,
-//                constant: 0)
-//            
-//            ])
-        // headerView.backgroundColor
-        let authorLabel = UILabel()
-        authorLabel.text = post.author.username
-        headerView.addSubview(authorLabel)
-        
-        return headerView
+        return PostsTableViewDataSource.headerView(tableView, section: section, posts: posts)
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
-        cell.post = Post.PFObject2Post(posts[indexPath.section])
-        return cell
+        return PostsTableViewDataSource.cellForIndexPath(tableView, indexPath: indexPath, posts: posts)
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

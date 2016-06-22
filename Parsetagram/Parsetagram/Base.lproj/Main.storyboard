@@ -114,22 +114,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBB-A4-jfd">
-                                <rect key="frame" x="528" y="20" width="52" height="30"/>
-                                <state key="normal" title="Log out"/>
-                                <connections>
-                                    <action selector="tappedLogout:" destination="y3B-WY-ZAH" eventType="touchUpInside" id="UrF-Vj-SgS"/>
-                                </connections>
-                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="353" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RY3-6w-27m">
+                                <rect key="frame" x="0.0" y="170" width="600" height="381"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="post" rowHeight="353" id="oAq-tl-vfp" customClass="PostTableViewCell" customModule="Parsetagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="353"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oAq-tl-vfp" id="bgF-7h-oCP">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="352.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KdN-s6-lA6">
+                                                    <rect key="frame" x="8" y="8" width="584" height="269"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="269" id="xnJ-Td-5Zx"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Y8-vY-vbt">
+                                                    <rect key="frame" x="8" y="285" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1Y8-vY-vbt" firstAttribute="trailing" secondItem="bgF-7h-oCP" secondAttribute="trailingMargin" id="4Wo-eV-e3j"/>
+                                                <constraint firstItem="1Y8-vY-vbt" firstAttribute="leading" secondItem="bgF-7h-oCP" secondAttribute="leadingMargin" id="Czt-F3-Cfq"/>
+                                                <constraint firstItem="KdN-s6-lA6" firstAttribute="trailing" secondItem="bgF-7h-oCP" secondAttribute="trailingMargin" id="FTc-1G-sAZ"/>
+                                                <constraint firstItem="KdN-s6-lA6" firstAttribute="top" secondItem="bgF-7h-oCP" secondAttribute="topMargin" id="Kre-XD-kDW"/>
+                                                <constraint firstItem="1Y8-vY-vbt" firstAttribute="top" secondItem="KdN-s6-lA6" secondAttribute="bottom" constant="8" id="SKd-n4-N5o"/>
+                                                <constraint firstItem="KdN-s6-lA6" firstAttribute="leading" secondItem="bgF-7h-oCP" secondAttribute="leadingMargin" id="veh-eo-JXk"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27n-RX-GNS">
+                                <rect key="frame" x="0.0" y="20" width="600" height="142"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBB-A4-jfd">
+                                        <rect key="frame" x="540" y="8" width="52" height="30"/>
+                                        <state key="normal" title="Log out"/>
+                                        <connections>
+                                            <action selector="tappedLogout:" destination="y3B-WY-ZAH" eventType="touchUpInside" id="UrF-Vj-SgS"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="142" id="6ng-ti-ma8"/>
+                                    <constraint firstItem="EBB-A4-jfd" firstAttribute="top" secondItem="27n-RX-GNS" secondAttribute="top" constant="8" id="WQ3-1j-Fvf"/>
+                                    <constraint firstAttribute="trailing" secondItem="EBB-A4-jfd" secondAttribute="trailing" constant="8" id="t0u-Fc-k4r"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EBB-A4-jfd" firstAttribute="trailing" secondItem="vyg-vc-qY3" secondAttribute="trailingMargin" id="5yJ-9Q-abk"/>
-                            <constraint firstItem="EBB-A4-jfd" firstAttribute="top" secondItem="7tR-c4-Ccy" secondAttribute="bottom" id="uyS-J4-m3V"/>
+                            <constraint firstItem="RY3-6w-27m" firstAttribute="top" secondItem="27n-RX-GNS" secondAttribute="bottom" constant="8" id="0GS-Kt-guN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RY3-6w-27m" secondAttribute="trailing" constant="-20" id="7dW-yT-5ty"/>
+                            <constraint firstItem="IGA-Xj-GAs" firstAttribute="top" secondItem="RY3-6w-27m" secondAttribute="bottom" id="ByK-7m-Uh9"/>
+                            <constraint firstItem="RY3-6w-27m" firstAttribute="leading" secondItem="vyg-vc-qY3" secondAttribute="leadingMargin" constant="-20" id="CKz-kz-Sko"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="27n-RX-GNS" secondAttribute="trailing" constant="-20" id="HQh-Wk-Og1"/>
+                            <constraint firstItem="27n-RX-GNS" firstAttribute="top" secondItem="7tR-c4-Ccy" secondAttribute="bottom" id="iS8-gK-Kdr"/>
+                            <constraint firstItem="27n-RX-GNS" firstAttribute="leading" secondItem="vyg-vc-qY3" secondAttribute="leadingMargin" constant="-20" id="sM3-Qf-yUN"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="Z0D-bn-xcm"/>
                     <connections>
+                        <outlet property="postsTableView" destination="RY3-6w-27m" id="7Ae-jK-b0H"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="logout" id="OBG-wf-sKn"/>
                     </connections>
                 </viewController>
