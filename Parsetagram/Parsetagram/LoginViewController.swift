@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 class LoginViewController: UIViewController {
@@ -20,15 +21,17 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func didTapSignIn(sender: AnyObject) {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         let username = usernameLabel.text ?? ""
         let password = passwordLabel.text ?? ""
         
         PFUser.logInWithUsernameInBackground(username, password: password) { (user:PFUser?, error:NSError?) -> Void in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
-                print("User login failed.")
-                print(error.localizedDescription)
+                print("User login failed with error \(error.localizedDescription)")
+                //TODO handle errors
             } else {
-                print("User logged in successfully")
                 if self.presentedAsModal {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
@@ -41,22 +44,22 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func didTapSignUp(sender: AnyObject) {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         let newUser = PFUser()
         
         newUser.username = usernameLabel.text
         newUser.password = passwordLabel.text
         
-        print("tapped signup")
-        
         newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
                 print(error.localizedDescription)
                 if error.code == 202 {
                     // TODO username is taken
                 }
             } else {
-                print("User Registered successfully")
-                // manually segue to logged in view
+                // manually segue to logged in view ???
 //                self.dismissViewControllerAnimated(true, completion: nil)
                 self.performSegueWithIdentifier("login", sender: sender)
             }

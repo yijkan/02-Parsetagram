@@ -20,7 +20,7 @@ class NewViewController: UIViewController {
     @IBAction func tappedCameraButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
-//        vc.allowsEditing = true
+        vc.allowsEditing = true // !!! if allowing editing
         vc.sourceType = UIImagePickerControllerSourceType.Camera
         
         self.presentViewController(vc, animated: true, completion: nil)
@@ -29,7 +29,7 @@ class NewViewController: UIViewController {
     @IBAction func tappedCameraRollButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
-//        vc.allowsEditing = true
+        vc.allowsEditing = true // !!! if allowing editing
         vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
         self.presentViewController(vc, animated: true, completion: nil)
@@ -72,11 +72,11 @@ extension NewViewController : UIImagePickerControllerDelegate {
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // Get the image captured by the UIImagePickerController
         let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage //!!! if allowing editing
         
         // Do something with the images (based on your use case)
-//        selectedImage = editedImage
-        selectedImage = originalImage
+        selectedImage = editedImage //!!! if allowing editing
+//        selectedImage = originalImage //!!! if not allowing editing
         
         // Dismiss UIImagePickerController to go back to your original view controller
         dismissViewControllerAnimated(true, completion: {

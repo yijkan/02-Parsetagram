@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class AddCaptionViewController: UIViewController {
 
@@ -28,12 +29,13 @@ class AddCaptionViewController: UIViewController {
     }
     @IBAction func tappedPostButton(sender: AnyObject) {
         view.endEditing(true)
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
         Post.postImage(selectedImage, withCaption: captionField.text) { (success: Bool, error: NSError?) in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else {
-                print("successfully posted image")
                 self.performSegueWithIdentifier("posted", sender: sender)
             }
         }

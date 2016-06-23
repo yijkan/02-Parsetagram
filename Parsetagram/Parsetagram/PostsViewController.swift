@@ -22,26 +22,31 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
             self.posts = posts
             self.postsTableView.reloadData()
+        }, completion: { () in
+            self.refreshControl.endRefreshing()
+            self.isLoadingMore = false
+            self.loadingMoreView!.stopAnimating()
         })
-        self.refreshControl.endRefreshing()
-        self.isLoadingMore = false
-        self.loadingMoreView!.stopAnimating()
-
+        
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         postsTableView.insertSubview(refreshControl, atIndex: 0)
         
         postsTableView.dataSource = self
         postsTableView.delegate = self
-        postsTableView.registerClass(PostTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         
-        // TODO this breaks everything Dx (don't display correctly)
-//        postsTableView.estimatedRowHeight = 100
-//        postsTableView.rowHeight = UITableViewAutomaticDimension
+        let headerNib = UINib(nibName: "PostTableViewHeader", bundle: nil)
         
+//        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
+//        postsTableView.registerClass(PostTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        
+        postsTableView.estimatedRowHeight = 200
+        postsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        /***** For Infinite Scroll *****/
         let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
         loadingMoreView!.hidden = true
@@ -74,7 +79,6 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
                 
-                // TODO Code to load more results ...
                 loadCount += 1
                 queryPosts()
             }
@@ -108,6 +112,11 @@ extension PostsViewController : UITableViewDataSource {
         return 1
     }
     
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 100
+//    }
+    
+    /*
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeaderView
         let post = Post.PFObject2Post(posts[section])
@@ -136,7 +145,7 @@ extension PostsViewController : UITableViewDataSource {
         headerView.addSubview(authorLabel)
         
         return headerView
-    }
+    } */
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell

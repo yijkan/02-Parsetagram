@@ -9,23 +9,36 @@
 import UIKit
 import Parse
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var posts:[PFObject]!
+    @IBOutlet weak var postsTableView: UITableView!
+    var refreshControl:UIRefreshControl!
     var loadCount = 1
     var isLoadingMore:Bool = false
     var loadingMoreView:InfiniteScrollActivityView?
-    var refreshControl:UIRefreshControl!
-    
-    @IBOutlet weak var postsTableView: UITableView!
     
     override func viewDidLoad() {
         postsTableView.dataSource = self
+        postsTableView.delegate = self
 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         postsTableView.insertSubview(refreshControl, atIndex: 0)
 
+        postsTableView.estimatedRowHeight = 200
+        postsTableView.rowHeight = UITableViewAutomaticDimension
+
+        /***** For Infinite Scroll Indicator *****/
+        let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        postsTableView.addSubview(loadingMoreView!)
+        
+        var insets = postsTableView.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        postsTableView.contentInset = insets
+        
         queryPosts()
     }
 
@@ -42,17 +55,39 @@ class ProfileViewController: UIViewController {
         utilQuery(loadCount, loadAll: false, success: { (posts:[PFObject]) in
             self.posts = posts
             self.postsTableView.reloadData()
+        }, completion: { () in
+            self.refreshControl.endRefreshing()
+            self.isLoadingMore = false
+            self.loadingMoreView!.stopAnimating()
         })
         
-        self.refreshControl.endRefreshing()
-        // TODO for infinite scroll
-        //                    self.isLoadingMore = false
-        //                    self.loadingMoreView!.stopAnimating()
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
         loadCount = 1
         queryPosts()
+    }
+    
+    /***** For Infinite Scroll *****/
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (!isLoadingMore) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = postsTableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - postsTableView.bounds.size.height
+            
+            if (scrollView.contentOffset.y > scrollOffsetThreshold && postsTableView.dragging) {
+                isLoadingMore = true
+                
+                // loading indicator
+                let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                loadCount += 1
+                queryPosts()
+            }
+            
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -84,4 +119,7 @@ extension ProfileViewController : UITableViewDataSource {
     }
 }
 
+extension ProfileViewController : UITableViewDelegate {
+    
+}
 

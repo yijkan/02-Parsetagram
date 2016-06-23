@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void) {
+func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, completion: () -> Void) {
     var query:PFQuery!
     
     if !loadAll {
@@ -23,8 +23,10 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void) {
     query.includeKey("author")
     query.includeKey("username")
     // query.skip = 10 is also possible. look up if you can append the array
-    query.limit = 2 * loadCount // TODO change this back
+    query.limit = 2 * loadCount // !!! change this back to 20 
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
+        completion()
+        
         if let error = error {
             print("Error: \(error.localizedDescription)")
         } else {
@@ -34,3 +36,4 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void) {
         }
     }
 }
+
