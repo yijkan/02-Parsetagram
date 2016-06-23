@@ -117,6 +117,7 @@ extension ProfileViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
+        cell.imageViewWidth = view.frame.size.width - 40.0
         cell.post = Post.PFObject2Post(posts[indexPath.row])
         return cell
     }
