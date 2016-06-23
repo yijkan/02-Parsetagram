@@ -36,7 +36,6 @@ class PostDetailsViewController : UIViewController {
         if let ratio = post.heightToWidth {
             self.postImageHeightConstraint.constant = imageViewWidth * ratio
             presized = true
-            print("presized detail view with ratio \(ratio), imageViewWidth \(imageViewWidth)")
         }
 
         postImageView.file = post.image
@@ -54,7 +53,6 @@ class PostDetailsViewController : UIViewController {
                         let imageWidth = image.size.width
                     
                         self.postImageHeightConstraint.constant = self.imageViewWidth * imageHeight / imageWidth
-                        print("resized detail view")
                     }
                 }
             }

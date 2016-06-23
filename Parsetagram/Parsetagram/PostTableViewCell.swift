@@ -16,6 +16,7 @@ import ParseUI
 class PostTableViewCell : UITableViewCell {
     
     @IBOutlet weak var postImageView: PFImageView!
+    var imageViewWidth: CGFloat!
     @IBOutlet weak var postImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var captionLabel: UILabel!
     
@@ -28,10 +29,9 @@ class PostTableViewCell : UITableViewCell {
             }
             
             var presized:Bool = false
-            let imageViewWidth = self.postImageView.frame.size.width
             if let ratio = post.heightToWidth {
                 self.postImageHeightConstraint.constant = imageViewWidth * ratio
-                print("resized")
+                print("resized with imageViewWidth \(imageViewWidth)")
                 presized = true
             }
             
@@ -49,7 +49,7 @@ class PostTableViewCell : UITableViewCell {
                         if !presized {
                             let imageHeight = image.size.height
                             let imageWidth = image.size.width
-                            self.postImageHeightConstraint.constant = imageViewWidth * imageHeight / imageWidth
+                            self.postImageHeightConstraint.constant = self.imageViewWidth * imageHeight / imageWidth
                             let query = PFQuery(className: "Post")
                             query.getObjectInBackgroundWithId(self.post.id) {
                                 (post: PFObject?, error: NSError?) -> Void in
