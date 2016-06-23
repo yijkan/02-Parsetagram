@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 class PostsViewController: UIViewController, UIScrollViewDelegate {
@@ -19,10 +20,12 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     var loadingMoreView:InfiniteScrollActivityView?
     
     func queryPosts() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
             self.posts = posts
             self.postsTableView.reloadData()
         }, completion: { () in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             self.refreshControl.endRefreshing()
             self.isLoadingMore = false
             self.loadingMoreView!.stopAnimating()

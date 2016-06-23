@@ -9,29 +9,74 @@
 import UIKit
 import MBProgressHUD
 
-class AddCaptionViewController: UIViewController {
+class AddCaptionViewController: UIViewController, UITextViewDelegate {
 
     var selectedImage: UIImage!
     
     @IBOutlet weak var selectedImageView: UIImageView!
+    @IBOutlet weak var captionText: UITextView!
+    var captionPlaceholderText: String! = "Add a caption"
     
-    @IBOutlet weak var captionField: UITextField!
+    @IBOutlet weak var captionTextBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         selectedImageView.clipsToBounds = true
         selectedImageView.contentMode = .ScaleAspectFit
         selectedImageView.image = selectedImage
+        
+        captionText.delegate = self
+        captionText.textColor = UIColor.lightGrayColor()
+        captionText.text = captionPlaceholderText
+        captionText.layer.cornerRadius = 5
+        captionText.layer.borderColor = UIColor.darkGrayColor().CGColor
+        captionText.layer.borderWidth = 1
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func onKeyboardWillShow(notification: NSNotification) {
+        let userInfo = notification.userInfo
+        let keyboardFrame = userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
+        let keyboardHeight = keyboardFrame!.size.height
+        
+        let tabViewController = UITabBarController()
+        let tabBarHeight = tabViewController.tabBar.frame.size.height
+        
+        captionTextBottomConstraint.constant = keyboardHeight - tabBarHeight + 8
+        view.layoutIfNeeded()
+    }
+    
+    func onKeyboardWillHide(notification: NSNotification) {
+        captionTextBottomConstraint.constant = 8
+        view.layoutIfNeeded()
     }
     
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
     }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        if textView.textColor == UIColor.lightGrayColor() {
+            textView.text = nil
+            textView.textColor = UIColor.blackColor()
+        }
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        if textView.text.isEmpty || textView.text == "" {
+            textView.textColor = UIColor.lightGrayColor()
+            captionText.text = captionPlaceholderText
+        }
+    }
+    
+    
     @IBAction func tappedPostButton(sender: AnyObject) {
         view.endEditing(true)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
-        Post.postImage(selectedImage, withCaption: captionField.text) { (success: Bool, error: NSError?) in
+        Post.postImage(selectedImage, withCaption: captionText.text) { (success: Bool, error: NSError?) in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
                 print("Error: \(error.localizedDescription)")

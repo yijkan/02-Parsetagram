@@ -69,7 +69,7 @@ class Post: NSObject {
     
     class func postImage(image: UIImage?, withCaption caption: String?,
                          withCompletion completion:PFBooleanResultBlock?) {
-        // ??? If I want to resize the image
+        // ??? maybe resize the image
 //        let image = resizeImage(image!, newSize: CGSize(width:100, height:100))         
         
         // Create Parse object PFObject

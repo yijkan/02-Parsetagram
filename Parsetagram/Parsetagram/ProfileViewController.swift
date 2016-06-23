@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import MBProgressHUD
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
@@ -52,10 +53,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func queryPosts() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         utilQuery(loadCount, loadAll: false, success: { (posts:[PFObject]) in
             self.posts = posts
             self.postsTableView.reloadData()
         }, completion: { () in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             self.refreshControl.endRefreshing()
             self.isLoadingMore = false
             self.loadingMoreView!.stopAnimating()

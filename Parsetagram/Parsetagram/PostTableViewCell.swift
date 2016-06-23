@@ -31,6 +31,7 @@ class PostTableViewCell : UITableViewCell {
             let imageViewWidth = self.postImageView.frame.size.width
             if let ratio = post.heightToWidth {
                 self.postImageHeightConstraint.constant = imageViewWidth * ratio
+                print("resized")
                 presized = true
             }
             

@@ -22,8 +22,8 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, com
     query.orderByDescending("createdAt")
     query.includeKey("author")
     query.includeKey("username")
-    // query.skip = 10 is also possible. look up if you can append the array
-    query.limit = 2 * loadCount // !!! change this back to 20 
+    // TODO query.skip = 10 is also possible. append array using +
+    query.limit = 20 * loadCount
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
         completion()
         

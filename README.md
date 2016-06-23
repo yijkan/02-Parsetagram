@@ -2,7 +2,7 @@
 
 **Parsetagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **15.5** hours spent in total
+Time spent: **18** hours spent in total
 
 ## User Stories
 
@@ -37,7 +37,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
+1. I think I need to work on doing things one at a time, because I'd get caught up in trying to figure out exactly what layout and behavior I want for the app before I get anything done but this is obviously not good for productivity
 2.
 
 ## Video Walkthrough

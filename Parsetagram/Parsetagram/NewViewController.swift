@@ -47,24 +47,7 @@ class NewViewController: UIViewController {
 }
 
 extension NewViewController : UINavigationControllerDelegate {
-    /* UINavigationControllerDelegate
-     
-     @available(iOS 2.0, *)
-     optional public func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool)
-     @available(iOS 2.0, *)
-     optional public func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool)
-     
-     @available(iOS 7.0, *)
-     optional public func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask
-     @available(iOS 7.0, *)
-     optional public func navigationControllerPreferredInterfaceOrientationForPresentation(navigationController: UINavigationController) -> UIInterfaceOrientation
-     
-     @available(iOS 7.0, *)
-     optional public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
-     
-     @available(iOS 7.0, *)
-     optional public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
-     */
+
 }
 
 extension NewViewController : UIImagePickerControllerDelegate {
