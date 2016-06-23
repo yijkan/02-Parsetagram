@@ -13,6 +13,7 @@ import MBProgressHUD
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var posts:[PFObject]!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
     var loadCount = 1
@@ -20,6 +21,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     var loadingMoreView:InfiniteScrollActivityView?
     
     override func viewDidLoad() {
+        usernameLabel.text = PFUser.currentUser()!.username
+        
         postsTableView.dataSource = self
         postsTableView.delegate = self
 
