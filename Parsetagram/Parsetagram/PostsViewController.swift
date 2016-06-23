@@ -19,13 +19,17 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     var isLoadingMore:Bool = false
     var loadingMoreView:InfiniteScrollActivityView?
     
-    func queryPosts() {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    func queryPosts(useHUD:Bool) {
+        if useHUD {
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        }
         utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
             self.posts = posts
             self.postsTableView.reloadData()
         }, completion: { () in
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            if useHUD {
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            }
             self.refreshControl.endRefreshing()
             self.isLoadingMore = false
             self.loadingMoreView!.stopAnimating()
@@ -59,12 +63,12 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         postsTableView.contentInset = insets
         
-        queryPosts()
+        queryPosts(true)
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
         loadCount = 1
-        queryPosts()
+        queryPosts(fale)
     }
 
     
@@ -83,7 +87,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
                 loadingMoreView!.startAnimating()
                 
                 loadCount += 1
-                queryPosts()
+                queryPosts(false)
             }
             
         }

@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         postsTableView.contentInset = insets
         
-        queryPosts()
+        queryPosts(true)
     }
 
     @IBAction func tappedLogout(sender: AnyObject) {
@@ -55,13 +55,17 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         performSegueWithIdentifier("logout", sender: sender)
     }
     
-    func queryPosts() {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    func queryPosts(useHUD:Bool) {
+        if useHUD {
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        }
         utilQuery(loadCount, loadAll: false, success: { (posts:[PFObject]) in
             self.posts = posts
             self.postsTableView.reloadData()
         }, completion: { () in
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            if useHUD {
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            }
             self.refreshControl.endRefreshing()
             self.isLoadingMore = false
             self.loadingMoreView!.stopAnimating()
@@ -71,7 +75,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     func refreshAction(refreshControl: UIRefreshControl) {
         loadCount = 1
-        queryPosts()
+        queryPosts(false)
     }
     
     /***** For Infinite Scroll *****/
@@ -90,7 +94,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
                 loadingMoreView!.startAnimating()
                 
                 loadCount += 1
-                queryPosts()
+                queryPosts(false)
             }
             
         }
