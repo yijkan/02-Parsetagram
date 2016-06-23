@@ -96,6 +96,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
                 let indexPath = postsTableView.indexPathForCell(cell)
                 let vc = segue.destinationViewController as! PostDetailsViewController
                 vc.post = Post.PFObject2Post(posts[indexPath!.section])
+                vc.imageViewWidth = view.frame.size.width - 40.0
             }
             
         }

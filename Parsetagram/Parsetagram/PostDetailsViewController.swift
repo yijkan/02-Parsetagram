@@ -18,6 +18,7 @@ class PostDetailsViewController : UIViewController {
     @IBOutlet weak var postImageHeightConstraint: NSLayoutConstraint!
     
     var post:Post!
+    var imageViewWidth:CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +33,15 @@ class PostDetailsViewController : UIViewController {
         }
         
         var presized:Bool = false
-        let imageViewWidth = self.postImageView.frame.size.width
         if let ratio = post.heightToWidth {
             self.postImageHeightConstraint.constant = imageViewWidth * ratio
             presized = true
-            print("presized detail view with ratio \(ratio)")
+            print("presized detail view with ratio \(ratio), imageViewWidth \(imageViewWidth)")
         }
 
         postImageView.file = post.image
-//        postImageView.clipsToBounds = true
-//        postImageView.contentMode = .ScaleAspectFit
+        postImageView.clipsToBounds = true
+        postImageView.contentMode = .ScaleAspectFit
         
         self.postImageView.loadInBackground { (image:UIImage?, error:NSError?) in
             if let error = error {
@@ -53,11 +53,12 @@ class PostDetailsViewController : UIViewController {
                         let imageHeight = image.size.height
                         let imageWidth = image.size.width
                     
-                        self.postImageHeightConstraint.constant = imageViewWidth * imageHeight / imageWidth
+                        self.postImageHeightConstraint.constant = self.imageViewWidth * imageHeight / imageWidth
                         print("resized detail view")
                     }
                 }
             }
         }
     }
+    
 }
