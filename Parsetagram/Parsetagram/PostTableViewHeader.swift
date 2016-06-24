@@ -9,17 +9,11 @@
 import UIKit
 import Parse
 
-class PostTableViewHeaderView : UITableViewHeaderFooterView {
+class PostTableViewHeader : UITableViewHeaderFooterView {
    
-//    @IBOutlet weak var headerContentView: UIView!
+    @IBOutlet var headerContentView: UIView!
     @IBOutlet weak var authorLabel: UILabel!
-    
-    var post:Post! {
-        didSet {
-            authorLabel.text = post.author.username
-        }
-    }
-    
+        
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         initSubviews()
@@ -31,7 +25,7 @@ class PostTableViewHeaderView : UITableViewHeaderFooterView {
     }
     
     func initSubviews() {
-        let nib = UINib(nibName: "PostTableViewHeaderView", bundle: nil)
+        let nib = UINib(nibName: "PostTableViewHeader", bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)

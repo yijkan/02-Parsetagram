@@ -54,8 +54,8 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         
         let headerNib = UINib(nibName: "PostTableViewHeader", bundle: nil)
         
-//        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
-//        postsTableView.registerClass(PostTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
+        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         
         postsTableView.estimatedRowHeight = 200
         postsTableView.rowHeight = UITableViewAutomaticDimension
@@ -123,40 +123,17 @@ extension PostsViewController : UITableViewDataSource {
         return 1
     }
     
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 100
-//    }
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
     
-    /*
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
         let post = Post.PFObject2Post(posts[section])
-        //        headerView.addConstraints([
-        //            NSLayoutConstraint(
-        //                item: headerView,
-        //                attribute: .Leading,
-        //                relatedBy: .Equal,
-        //                toItem: headerView,
-        //                attribute: .Leading,
-        //                multiplier: 1.0,
-        //                constant: 0),
-        //            NSLayoutConstraint(
-        //                item: headerView,
-        //                attribute: .Trailing,
-        //                relatedBy: .Equal,
-        //                toItem: headerView,
-        //                attribute: .Trailing,
-        //                multiplier: 1.0,
-        //                constant: 0)
-        //
-        //            ])
-        // headerView.backgroundColor
-        let authorLabel = UILabel()
-        authorLabel.text = post.author.username
-        headerView.addSubview(authorLabel)
-        
+        headerView.authorLabel.text = post.author.username
         return headerView
-    } */
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell

@@ -5,9 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostTableViewHeader" customModule="Parsetagram" customModuleProvider="target">
+            <connections>
+                <outlet property="authorLabel" destination="8u4-8b-WL9" id="ikD-mA-7hX"/>
+                <outlet property="headerContentView" destination="iN0-l3-epB" id="Egg-Ty-56l"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PostTableViewHeaderView" customModule="Parsetagram" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -25,9 +30,7 @@
                 <constraint firstItem="8u4-8b-WL9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="q76-Tf-m1g"/>
                 <constraint firstAttribute="trailing" secondItem="8u4-8b-WL9" secondAttribute="trailing" constant="8" id="yed-po-XJ6"/>
             </constraints>
-            <connections>
-                <outlet property="authorLabel" destination="8u4-8b-WL9" id="ZY1-kX-70k"/>
-            </connections>
+            <point key="canvasLocation" x="232" y="339"/>
         </view>
     </objects>
 </document>

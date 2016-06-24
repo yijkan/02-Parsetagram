@@ -12,7 +12,7 @@ import Parse
 func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, failure: () -> Void,completion: () -> Void) {
     var query:PFQuery!
     
-    let loadNum:Int = 2
+    let loadNum:Int = 20
     
     if !loadAll {
         let predicate = NSPredicate(format:"author = %@", PFUser.currentUser()!)
@@ -24,8 +24,7 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, fai
     query.orderByDescending("createdAt")
     query.includeKey("author")
     query.includeKey("username")
-    // TODO query.skip = 10 is also possible. append array using +
-    query.skip = loadNum * loadCount// !!!
+    query.skip = loadNum * loadCount
     query.limit = loadNum
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
         if let error = error {
