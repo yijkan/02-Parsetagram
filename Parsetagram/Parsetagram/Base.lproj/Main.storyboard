@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -232,32 +233,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKI-2X-I5I">
-                                <rect key="frame" x="20" y="314" width="560" height="278"/>
-                                <state key="normal" title="Choose from Camera Roll"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhM-yh-SP1" userLabel="Camera">
+                                <rect key="frame" x="0.0" y="64" width="600" height="243.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="VGR-LL-Ohs">
+                                        <rect key="frame" x="236" y="20" width="128" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="VGR-LL-Ohs" secondAttribute="height" multiplier="1:1" id="u5b-va-akj"/>
+                                            <constraint firstAttribute="width" priority="750" constant="128" id="zut-WW-Obo"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take new photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asr-BD-un1">
+                                        <rect key="frame" x="240" y="156" width="121" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="asr-BD-un1" firstAttribute="top" secondItem="VGR-LL-Ohs" secondAttribute="bottom" constant="8" id="GaA-hI-URi"/>
+                                    <constraint firstItem="VGR-LL-Ohs" firstAttribute="top" secondItem="rhM-yh-SP1" secondAttribute="top" constant="20" id="KQ1-6S-Kdk"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="asr-BD-un1" secondAttribute="bottom" constant="20" id="UvM-xI-20w"/>
+                                    <constraint firstItem="asr-BD-un1" firstAttribute="centerX" secondItem="rhM-yh-SP1" secondAttribute="centerX" id="oen-ZL-U4G"/>
+                                    <constraint firstItem="VGR-LL-Ohs" firstAttribute="centerX" secondItem="rhM-yh-SP1" secondAttribute="centerX" id="vDs-5s-Ug3"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="tappedCameraRollButton:" destination="MGO-75-EsN" eventType="touchUpInside" id="Qf2-1a-5vl"/>
+                                    <outletCollection property="gestureRecognizers" destination="W2p-dP-L1e" appends="YES" id="By3-7n-ggQ"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rE6-7E-bon">
-                                <rect key="frame" x="20" y="28" width="560" height="278"/>
-                                <state key="normal" title="Take new photo"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ta-ae-nfp" userLabel="Roll">
+                                <rect key="frame" x="0.0" y="307" width="600" height="243.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camera Roll" translatesAutoresizingMaskIntoConstraints="NO" id="lDC-m6-nJf">
+                                        <rect key="frame" x="236" y="20" width="128" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" priority="750" constant="128" id="7nL-uZ-Ovp"/>
+                                            <constraint firstAttribute="width" secondItem="lDC-m6-nJf" secondAttribute="height" multiplier="1:1" id="JdE-ne-L7o"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose from Camera Roll" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emq-Us-mHr">
+                                        <rect key="frame" x="203" y="156" width="195" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="emq-Us-mHr" firstAttribute="top" secondItem="lDC-m6-nJf" secondAttribute="bottom" constant="8" id="Muh-ye-7I8"/>
+                                    <constraint firstItem="emq-Us-mHr" firstAttribute="centerX" secondItem="3Ta-ae-nfp" secondAttribute="centerX" id="aoz-vl-KZT"/>
+                                    <constraint firstItem="lDC-m6-nJf" firstAttribute="top" secondItem="3Ta-ae-nfp" secondAttribute="top" constant="20" id="ikh-RT-bhi"/>
+                                    <constraint firstItem="lDC-m6-nJf" firstAttribute="centerX" secondItem="3Ta-ae-nfp" secondAttribute="centerX" id="j17-jg-u7r"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="emq-Us-mHr" secondAttribute="bottom" constant="20" id="nac-KV-UeQ"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="tappedCameraButton:" destination="MGO-75-EsN" eventType="touchUpInside" id="4zZ-Ha-nAG"/>
-                                    <action selector="tappedCameraRollButton:" destination="MGO-75-EsN" eventType="touchUpInside" id="tqA-bx-tjR"/>
+                                    <outletCollection property="gestureRecognizers" destination="twg-5m-8iJ" appends="YES" id="lNN-YM-RjS"/>
                                 </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.9327123397" green="0.91324765289999998" blue="0.84993306499999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="MKI-2X-I5I" firstAttribute="top" secondItem="rE6-7E-bon" secondAttribute="bottom" constant="8" id="H4i-Vn-1Oo"/>
-                            <constraint firstItem="rE6-7E-bon" firstAttribute="top" secondItem="QaK-7y-x5t" secondAttribute="bottom" constant="8" id="Psb-QK-gce"/>
-                            <constraint firstItem="MKI-2X-I5I" firstAttribute="trailing" secondItem="R9c-tR-zQb" secondAttribute="trailingMargin" id="QKO-EU-3YV"/>
-                            <constraint firstItem="rE6-7E-bon" firstAttribute="height" secondItem="MKI-2X-I5I" secondAttribute="height" id="QeM-0q-lrw"/>
-                            <constraint firstItem="rE6-7E-bon" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leadingMargin" id="nDq-1K-SJx"/>
-                            <constraint firstItem="rE6-7E-bon" firstAttribute="trailing" secondItem="R9c-tR-zQb" secondAttribute="trailingMargin" id="sCJ-px-Lxd"/>
-                            <constraint firstItem="MKI-2X-I5I" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leadingMargin" id="ss5-wg-5df"/>
-                            <constraint firstItem="y68-rG-t7y" firstAttribute="top" secondItem="MKI-2X-I5I" secondAttribute="bottom" constant="8" id="xKP-3F-uVm"/>
+                            <constraint firstItem="rhM-yh-SP1" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leading" id="62t-1X-rdO"/>
+                            <constraint firstItem="y68-rG-t7y" firstAttribute="top" secondItem="3Ta-ae-nfp" secondAttribute="bottom" id="BOz-Pm-DZi"/>
+                            <constraint firstAttribute="trailing" secondItem="rhM-yh-SP1" secondAttribute="trailing" id="JYo-5q-o6C"/>
+                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leading" id="etL-TR-k8p"/>
+                            <constraint firstAttribute="trailing" secondItem="3Ta-ae-nfp" secondAttribute="trailing" id="gOA-67-r1x"/>
+                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="top" secondItem="rhM-yh-SP1" secondAttribute="bottom" id="odA-hv-GqT"/>
+                            <constraint firstItem="rhM-yh-SP1" firstAttribute="top" secondItem="QaK-7y-x5t" secondAttribute="bottom" id="t9O-BX-Fep"/>
+                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="height" secondItem="rhM-yh-SP1" secondAttribute="height" id="tf0-rv-vJE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Photo" id="lnL-Ih-Tvo"/>
@@ -266,6 +310,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VMS-GR-Cp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="W2p-dP-L1e">
+                    <connections>
+                        <action selector="tappedCameraButton:" destination="MGO-75-EsN" id="5X0-CN-F7A"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="twg-5m-8iJ">
+                    <connections>
+                        <action selector="tappedCameraRollButton:" destination="MGO-75-EsN" id="DlJ-rI-qfW"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1563" y="1013"/>
         </scene>
@@ -281,13 +335,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-gS-QM6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-gS-QM6">
                                 <rect key="frame" x="8" y="79" width="584" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="300" id="X7d-zW-zuh"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="128" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kva-pQ-opM">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="128" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kva-pQ-opM">
                                 <rect key="frame" x="8" y="385" width="584" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -448,13 +502,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty6-0A-n4v">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty6-0A-n4v">
                                 <rect key="frame" x="112" y="72" width="468" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-p3-hll">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-p3-hll">
                                 <rect key="frame" x="20" y="72" width="84" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -522,11 +576,11 @@
             </objects>
             <point key="canvasLocation" x="-693.75" y="510.21126760563379"/>
         </scene>
-        <!--Posts-->
+        <!--Home-->
         <scene sceneID="P18-Do-mj6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Vhd-UE-iSb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Posts" id="ad6-pm-plN"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="HomeIcon" id="ad6-pm-plN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yHx-Xt-xge">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -547,7 +601,7 @@
         <scene sceneID="If4-o4-5Af">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qLO-jq-ebV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New" id="ZHu-Hx-VFQ"/>
+                    <tabBarItem key="tabBarItem" title="New" image="NewIcon" id="ZHu-Hx-VFQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xQZ-GK-JFs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -567,7 +621,7 @@
         <scene sceneID="O9b-ms-vbN">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Et6-y4-lxZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="Z0D-bn-xcm"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Profile Icon" id="Z0D-bn-xcm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f3c-U4-yM5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -584,9 +638,16 @@
             <point key="canvasLocation" x="671" y="1730"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera" width="64" height="64"/>
+        <image name="Camera Roll" width="64" height="64"/>
+        <image name="HomeIcon" width="25" height="25"/>
+        <image name="NewIcon" width="25" height="25"/>
+        <image name="Profile Icon" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xGo-BO-XLD"/>
-        <segue reference="ohG-Yg-DkP"/>
+        <segue reference="mhg-L6-Npp"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.57700320512820513" green="0.2199167710322428" blue="0.049211644553578841" alpha="1" colorSpace="calibratedRGB"/>
 </document>
