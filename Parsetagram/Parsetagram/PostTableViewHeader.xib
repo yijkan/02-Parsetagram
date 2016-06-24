@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8u4-8b-WL9">
-                    <rect key="frame" x="8" y="8" width="584" height="584"/>
+                    <rect key="frame" x="16" y="289.5" width="44" height="21.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -25,10 +25,8 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="8u4-8b-WL9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="66C-9t-bg9"/>
-                <constraint firstAttribute="bottom" secondItem="8u4-8b-WL9" secondAttribute="bottom" constant="8" id="CAi-Kv-uJd"/>
-                <constraint firstItem="8u4-8b-WL9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="q76-Tf-m1g"/>
-                <constraint firstAttribute="trailing" secondItem="8u4-8b-WL9" secondAttribute="trailing" constant="8" id="yed-po-XJ6"/>
+                <constraint firstItem="8u4-8b-WL9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hu4-YL-NB3"/>
+                <constraint firstItem="8u4-8b-WL9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="oJM-47-4Nl"/>
             </constraints>
             <point key="canvasLocation" x="232" y="339"/>
         </view>

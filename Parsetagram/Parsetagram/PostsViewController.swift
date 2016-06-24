@@ -129,9 +129,16 @@ extension PostsViewController : UITableViewDataSource {
     
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
         let post = Post.PFObject2Post(posts[section])
-        headerView.authorLabel.text = post.author.username
+        // !!! not sure how to get this working
+//        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
+//        headerView.authorLabel.text = post.author.username
+
+        // !!! fallback. it works
+        let headerView = UITableViewHeaderFooterView.init(reuseIdentifier: "header")
+        let authorLabel = UILabel(frame: CGRect(x: 15, y: 15, width: 100, height: 20))
+        authorLabel.text = post.author.username
+        headerView.addSubview(authorLabel)
         return headerView
     }
     
