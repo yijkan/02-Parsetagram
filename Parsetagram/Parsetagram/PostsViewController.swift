@@ -12,20 +12,27 @@ import Parse
 
 class PostsViewController: UIViewController, UIScrollViewDelegate {
     
-    var posts:[PFObject]!
+    @IBOutlet weak var networkErrorView: UIView!
+    
+    var posts:[PFObject] = []
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
-    var loadCount = 1
+    var loadCount = 0
     var isLoadingMore:Bool = false
     var loadingMoreView:InfiniteScrollActivityView?
+    
+
     
     func queryPosts(useHUD:Bool) {
         if useHUD {
             MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         }
         utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
-            self.posts = posts
+            fadeOut(self.networkErrorView)
+            self.posts = self.posts + posts
             self.postsTableView.reloadData()
+        }, failure: { () in
+            fadeIn(self.networkErrorView)
         }, completion: { () in
             if useHUD {
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
@@ -67,7 +74,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
-        loadCount = 1
+        loadCount = 0
         queryPosts(false)
     }
 
@@ -109,11 +116,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
 
 extension PostsViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if let posts = posts {
-            return posts.count
-        } else {
-            return 0
-        }
+        return posts.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

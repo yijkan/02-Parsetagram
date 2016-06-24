@@ -33,10 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewController : UIViewController?
         
         if PFUser.currentUser() != nil {
-            print("logged in as \(PFUser.currentUser()!.username)")
+            print("logged in as \(PFUser.currentUser()!.username!)")
             viewController = storyBoard.instantiateViewControllerWithIdentifier("Main") as UIViewController
         } else {
-            print("not logged in")
             viewController = storyBoard.instantiateViewControllerWithIdentifier("Login") as UIViewController
         }
         self.window?.rootViewController = viewController!

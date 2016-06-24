@@ -16,7 +16,6 @@ class PostTableViewHeaderView : UITableViewHeaderFooterView {
     
     var post:Post! {
         didSet {
-            print("set header's post")
             authorLabel.text = post.author.username
         }
     }

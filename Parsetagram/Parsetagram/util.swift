@@ -9,8 +9,10 @@
 import UIKit
 import Parse
 
-func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, completion: () -> Void) {
+func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, failure: () -> Void,completion: () -> Void) {
     var query:PFQuery!
+    
+    let loadNum:Int = 2
     
     if !loadAll {
         let predicate = NSPredicate(format:"author = %@", PFUser.currentUser()!)
@@ -23,17 +25,36 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, com
     query.includeKey("author")
     query.includeKey("username")
     // TODO query.skip = 10 is also possible. append array using +
-    query.limit = 20 * loadCount
+    query.skip = loadNum * loadCount// !!!
+    query.limit = loadNum
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
-        completion()
-        
         if let error = error {
             print("Error: \(error.localizedDescription)")
+            failure()
         } else {
             if let posts = objects {
                 success(posts)
+            } else {
+                print("Error: nothing loaded")
             }
         }
+        
+        completion()
+    }
+}
+
+func fadeIn(view:UIView) {
+    view.alpha = 0.0
+    UIView.animateWithDuration(0.3, animations: { () in
+        view.alpha = 0.75
+    })
+}
+
+func fadeOut(view:UIView) {
+    if view.alpha > 0.0 {
+        UIView.animateWithDuration(0.3, animations: { () in
+            view.alpha = 0.0
+        })
     }
 }
 

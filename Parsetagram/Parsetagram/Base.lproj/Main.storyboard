@@ -169,6 +169,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLK-h1-2k3">
+                                <rect key="frame" x="0.0" y="100" width="600" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error :(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSB-Q1-LSB">
+                                        <rect key="frame" x="239" y="15" width="122" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.77852564102564104" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="KSB-Q1-LSB" firstAttribute="centerX" secondItem="BLK-h1-2k3" secondAttribute="centerX" id="3B3-ap-5r1"/>
+                                    <constraint firstAttribute="height" constant="50" id="7WZ-jb-ZA5"/>
+                                    <constraint firstItem="KSB-Q1-LSB" firstAttribute="centerY" secondItem="BLK-h1-2k3" secondAttribute="centerY" id="lLi-AS-QUZ"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27n-RX-GNS">
                                 <rect key="frame" x="0.0" y="20" width="600" height="80"/>
                                 <subviews>
@@ -179,8 +196,8 @@
                                             <action selector="tappedLogout:" destination="y3B-WY-ZAH" eventType="touchUpInside" id="UrF-Vj-SgS"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-qu-12f">
-                                        <rect key="frame" x="8" y="46" width="106" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-qu-12f">
+                                        <rect key="frame" x="8" y="46" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -203,12 +220,16 @@
                             <constraint firstItem="IGA-Xj-GAs" firstAttribute="top" secondItem="RY3-6w-27m" secondAttribute="bottom" id="ByK-7m-Uh9"/>
                             <constraint firstItem="RY3-6w-27m" firstAttribute="leading" secondItem="vyg-vc-qY3" secondAttribute="leadingMargin" constant="-20" id="CKz-kz-Sko"/>
                             <constraint firstAttribute="trailingMargin" secondItem="27n-RX-GNS" secondAttribute="trailing" constant="-20" id="HQh-Wk-Og1"/>
+                            <constraint firstAttribute="trailing" secondItem="BLK-h1-2k3" secondAttribute="trailing" id="cso-eK-ypm"/>
+                            <constraint firstItem="BLK-h1-2k3" firstAttribute="leading" secondItem="vyg-vc-qY3" secondAttribute="leading" id="grY-5c-voZ"/>
                             <constraint firstItem="27n-RX-GNS" firstAttribute="top" secondItem="7tR-c4-Ccy" secondAttribute="bottom" id="iS8-gK-Kdr"/>
                             <constraint firstItem="27n-RX-GNS" firstAttribute="leading" secondItem="vyg-vc-qY3" secondAttribute="leadingMargin" constant="-20" id="sM3-Qf-yUN"/>
+                            <constraint firstItem="BLK-h1-2k3" firstAttribute="top" secondItem="27n-RX-GNS" secondAttribute="bottom" id="yZI-hF-pVL"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="Z0D-bn-xcm"/>
                     <connections>
+                        <outlet property="networkErrorView" destination="BLK-h1-2k3" id="Cdn-7f-7mg"/>
                         <outlet property="postsTableView" destination="RY3-6w-27m" id="7Ae-jK-b0H"/>
                         <outlet property="usernameLabel" destination="tXz-qu-12f" id="3OM-ye-AWl"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="logout" id="OBG-wf-sKn"/>
@@ -396,17 +417,38 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Cg-nWB">
+                                <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error :(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjC-UF-G4b">
+                                        <rect key="frame" x="239" y="15" width="122" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.77852564099999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="PjC-UF-G4b" firstAttribute="centerY" secondItem="tRl-Cg-nWB" secondAttribute="centerY" id="4Xh-WU-Kxl"/>
+                                    <constraint firstItem="PjC-UF-G4b" firstAttribute="centerX" secondItem="tRl-Cg-nWB" secondAttribute="centerX" id="EMi-f0-02c"/>
+                                    <constraint firstAttribute="height" constant="50" id="Pa1-Mw-Fhk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="o9y-68-FWI" secondAttribute="trailing" id="8wK-A0-pPg"/>
+                            <constraint firstItem="tRl-Cg-nWB" firstAttribute="top" secondItem="zM4-1m-CVL" secondAttribute="bottom" id="Ut6-hG-0FL"/>
+                            <constraint firstAttribute="trailing" secondItem="tRl-Cg-nWB" secondAttribute="trailing" id="Wex-bq-s7h"/>
                             <constraint firstItem="o9y-68-FWI" firstAttribute="leading" secondItem="lF1-ry-Py8" secondAttribute="leading" id="aTp-fa-3il"/>
+                            <constraint firstItem="tRl-Cg-nWB" firstAttribute="leading" secondItem="lF1-ry-Py8" secondAttribute="leading" id="fgT-la-6dP"/>
                             <constraint firstItem="1IB-L8-wWR" firstAttribute="top" secondItem="o9y-68-FWI" secondAttribute="bottom" id="t59-8y-zf7"/>
                             <constraint firstItem="o9y-68-FWI" firstAttribute="top" secondItem="lF1-ry-Py8" secondAttribute="top" id="wm5-sS-ygk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Parsetagram" id="dhu-20-H2Q"/>
                     <connections>
+                        <outlet property="networkErrorView" destination="tRl-Cg-nWB" id="uc3-Ig-Q5E"/>
                         <outlet property="postsTableView" destination="o9y-68-FWI" id="jaF-8k-BEU"/>
                     </connections>
                 </viewController>

@@ -12,13 +12,14 @@ import MBProgressHUD
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
-    var posts:[PFObject]!
+    var posts:[PFObject] = []
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
-    var loadCount = 1
+    var loadCount = 0
     var isLoadingMore:Bool = false
     var loadingMoreView:InfiniteScrollActivityView?
+    @IBOutlet weak var networkErrorView:UIView!
     
     override func viewDidLoad() {
         usernameLabel.text = PFUser.currentUser()!.username
@@ -49,7 +50,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func tappedLogout(sender: AnyObject) {
         PFUser.logOutInBackgroundWithBlock { (error: NSError?) in
             if let error = error {
-                print(error.localizedDescription)
+                print("Error: \(error.localizedDescription)")
             }
         }
         performSegueWithIdentifier("logout", sender: sender)
@@ -60,8 +61,11 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
             MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         }
         utilQuery(loadCount, loadAll: false, success: { (posts:[PFObject]) in
-            self.posts = posts
+            fadeOut(self.networkErrorView)
+            self.posts = self.posts + posts
             self.postsTableView.reloadData()
+        }, failure: { () in
+            fadeIn(self.networkErrorView)
         }, completion: { () in
             if useHUD {
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
@@ -74,7 +78,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
-        loadCount = 1
+        loadCount = 0
         queryPosts(false)
     }
     
@@ -112,11 +116,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 
 extension ProfileViewController : UITableViewDataSource {    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let posts = posts {
-            return posts.count
-        } else {
-            return 0
-        }
+        return posts.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

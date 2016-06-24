@@ -31,7 +31,6 @@ class PostTableViewCell : UITableViewCell {
             var presized:Bool = false
             if let ratio = post.heightToWidth {
                 self.postImageHeightConstraint.constant = imageViewWidth * ratio
-                print("resized with imageViewWidth \(imageViewWidth)")
                 presized = true
             }
             
@@ -54,7 +53,7 @@ class PostTableViewCell : UITableViewCell {
                             query.getObjectInBackgroundWithId(self.post.id) {
                                 (post: PFObject?, error: NSError?) -> Void in
                                     if let error = error {
-                                        print(error.localizedDescription)
+                                        print("Error: \(error.localizedDescription)")
                                     } else if let post = post {
                                         post["ratio"] = imageHeight / imageWidth 
                                         post.saveInBackground()

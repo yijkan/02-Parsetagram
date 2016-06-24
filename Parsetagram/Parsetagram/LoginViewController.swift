@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
         newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
-                print(error.localizedDescription)
+                print("Error: \(error.localizedDescription)")
                 if error.code == 202 {
                     // TODO username is taken
                 }
