@@ -8,8 +8,6 @@
 
 import UIKit
 
-// TODO I CAN'T SEE IT
-
 class InfiniteScrollActivityView : UIView {
     var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
     static let defaultHeight:CGFloat = 60.0

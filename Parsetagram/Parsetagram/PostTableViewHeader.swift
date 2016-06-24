@@ -9,14 +9,28 @@
 import UIKit
 import Parse
 
-class PostTableViewHeaderView : UITableViewHeaderFooterView {
-    var post:Post! {
-        didSet {
-            print("set header's post")
-            let authorName = UILabel()
-            authorName.text = post.author.username
-            self.addSubview(authorName)
-        }
+/*** Not sure how to get this working ***/
+
+class PostTableViewHeader : UITableViewHeaderFooterView {
+   
+    @IBOutlet var headerContentView: UIView!
+    @IBOutlet weak var authorLabel: UILabel!
+        
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        initSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initSubviews()
+    }
+    
+    func initSubviews() {
+        let nib = UINib(nibName: "PostTableViewHeader", bundle: nil)
+        nib.instantiateWithOwner(self, options: nil)
+        contentView.frame = bounds
+        addSubview(contentView)
     }
 
 }

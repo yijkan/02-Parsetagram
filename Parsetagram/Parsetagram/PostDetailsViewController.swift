@@ -15,27 +15,48 @@ class PostDetailsViewController : UIViewController {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var postImageView: PFImageView!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var postImageHeightConstraint: NSLayoutConstraint!
+    
     var post:Post!
+    var imageViewWidth:CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        postImageView.clipsToBounds = true
-        postImageView.contentMode = .ScaleAspectFit
-        postImageView.file = post.image
-        self.postImageView.loadInBackground()
-        
-        // TODO trying to resize
-        postImageView.frame = CGRectMake(postImageView.frame.origin.x, postImageView.frame.origin.y, postImageView.image!.size.width, postImageView.image!.size.width)
         
         authorLabel.text = post.author.username
-        print(post.author.username)
         timestampLabel.text = " on " + post.timestamp
-        print(post.timestamp)
+        
         if let cap = post.cap {
             captionLabel.text = cap
-            print(cap)
         } else {
             captionLabel.hidden = true
         }
+        
+        var presized:Bool = false
+        if let ratio = post.heightToWidth {
+            self.postImageHeightConstraint.constant = imageViewWidth * ratio
+            presized = true
+        }
+
+        postImageView.file = post.image
+        postImageView.clipsToBounds = true
+        postImageView.contentMode = .ScaleAspectFit
+        
+        self.postImageView.loadInBackground { (image:UIImage?, error:NSError?) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            } else {
+                if let image = image {
+                    if !presized {
+                        // resizes the imageView to the size of the image
+                        let imageHeight = image.size.height
+                        let imageWidth = image.size.width
+                    
+                        self.postImageHeightConstraint.constant = self.imageViewWidth * imageHeight / imageWidth
+                    }
+                }
+            }
+        }
     }
+    
 }

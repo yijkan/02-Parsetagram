@@ -7,41 +7,60 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 class PostsViewController: UIViewController, UIScrollViewDelegate {
     
-    var posts:[PFObject]!
+    @IBOutlet weak var networkErrorView: UIView!
+    
+    var posts:[PFObject] = []
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
-    var loadCount = 1
+    var loadCount = 0
     var isLoadingMore:Bool = false
     var loadingMoreView:InfiniteScrollActivityView?
     
-    func queryPosts() {
-        utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
-            self.posts = posts
-            self.postsTableView.reloadData()
-        })
-        self.refreshControl.endRefreshing()
-        self.isLoadingMore = false
-        self.loadingMoreView!.stopAnimating()
 
+    
+    func queryPosts(useHUD:Bool) {
+        if useHUD {
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        }
+        utilQuery(loadCount, loadAll: true, success: { (posts:[PFObject]) in
+            fadeOut(self.networkErrorView)
+            self.posts = self.posts + posts
+            self.postsTableView.reloadData()
+        }, failure: { () in
+            fadeIn(self.networkErrorView)
+        }, completion: { () in
+            if useHUD {
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            }
+            self.refreshControl.endRefreshing()
+            self.isLoadingMore = false
+            self.loadingMoreView!.stopAnimating()
+        })
+        
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         postsTableView.insertSubview(refreshControl, atIndex: 0)
         
         postsTableView.dataSource = self
         postsTableView.delegate = self
-        postsTableView.registerClass(PostTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         
-        // TODO this breaks everything Dx (don't display correctly)
-//        postsTableView.estimatedRowHeight = 100
-//        postsTableView.rowHeight = UITableViewAutomaticDimension
+        let headerNib = UINib(nibName: "PostTableViewHeader", bundle: nil)
         
+        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
+        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        
+        postsTableView.estimatedRowHeight = 200
+        postsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        /***** For Infinite Scroll *****/
         let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
         loadingMoreView!.hidden = true
@@ -51,12 +70,12 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         postsTableView.contentInset = insets
         
-        queryPosts()
+        queryPosts(true)
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
-        loadCount = 1
-        queryPosts()
+        loadCount = 0
+        queryPosts(false)
     }
 
     
@@ -74,9 +93,8 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
                 
-                // TODO Code to load more results ...
                 loadCount += 1
-                queryPosts()
+                queryPosts(false)
             }
             
         }
@@ -89,6 +107,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
                 let indexPath = postsTableView.indexPathForCell(cell)
                 let vc = segue.destinationViewController as! PostDetailsViewController
                 vc.post = Post.PFObject2Post(posts[indexPath!.section])
+                vc.imageViewWidth = view.frame.size.width - 40.0
             }
             
         }
@@ -97,49 +116,35 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
 
 extension PostsViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if let posts = posts {
-            return posts.count
-        } else {
-            return 0
-        }
+        return posts.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeaderView
         let post = Post.PFObject2Post(posts[section])
-        //        headerView.addConstraints([
-        //            NSLayoutConstraint(
-        //                item: headerView,
-        //                attribute: .Leading,
-        //                relatedBy: .Equal,
-        //                toItem: headerView,
-        //                attribute: .Leading,
-        //                multiplier: 1.0,
-        //                constant: 0),
-        //            NSLayoutConstraint(
-        //                item: headerView,
-        //                attribute: .Trailing,
-        //                relatedBy: .Equal,
-        //                toItem: headerView,
-        //                attribute: .Trailing,
-        //                multiplier: 1.0,
-        //                constant: 0)
-        //
-        //            ])
-        // headerView.backgroundColor
-        let authorLabel = UILabel()
+        // !!! not sure how to get this working
+//        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
+//        headerView.authorLabel.text = post.author.username
+
+        // !!! fallback. it works
+        let headerView = UITableViewHeaderFooterView.init(reuseIdentifier: "header")
+        let authorLabel = UILabel(frame: CGRect(x: 15, y: 15, width: 100, height: 20))
         authorLabel.text = post.author.username
         headerView.addSubview(authorLabel)
-        
         return headerView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
+        cell.imageViewWidth = view.frame.size.width - 40.0
         cell.post = Post.PFObject2Post(posts[indexPath.section])
         return cell
     }

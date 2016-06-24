@@ -28,15 +28,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController : UIViewController?
         
+//        (self.window?.rootViewController as! UITabBarController).tabBar.barTintColor = tintColor
+        
+        UITabBar.appearance().tintColor = tintColor
+        UITabBar.appearance().barTintColor = barColor
+        UINavigationBar.appearance().barTintColor = barColor
+        
+        // to determine whether user is logged in and present a view controller depending on that
+        let viewController : UIViewController?
         if PFUser.currentUser() != nil {
-            print("logged in as \(PFUser.currentUser()!.username)")
+            print("logged in as \(PFUser.currentUser()!.username!)")
             viewController = storyBoard.instantiateViewControllerWithIdentifier("Main") as UIViewController
         } else {
-            print("not logged in")
             viewController = storyBoard.instantiateViewControllerWithIdentifier("Login") as UIViewController
         }
         self.window?.rootViewController = viewController!

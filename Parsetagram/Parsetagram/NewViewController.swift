@@ -12,15 +12,25 @@ import Parse
 class NewViewController: UIViewController {
     
     var selectedImage:UIImage!
+    @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var rollView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cameraView.layer.cornerRadius = 5
+        cameraView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cameraView.layer.borderWidth = 1
+        
+        rollView.layer.cornerRadius = 5
+        rollView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        rollView.layer.borderWidth = 1
     }
 
     @IBAction func tappedCameraButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
-//        vc.allowsEditing = true
+        vc.allowsEditing = true // !!! if allowing editing
         vc.sourceType = UIImagePickerControllerSourceType.Camera
         
         self.presentViewController(vc, animated: true, completion: nil)
@@ -29,7 +39,7 @@ class NewViewController: UIViewController {
     @IBAction func tappedCameraRollButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
-//        vc.allowsEditing = true
+        vc.allowsEditing = true // !!! if allowing editing
         vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
         self.presentViewController(vc, animated: true, completion: nil)
@@ -47,24 +57,7 @@ class NewViewController: UIViewController {
 }
 
 extension NewViewController : UINavigationControllerDelegate {
-    /* UINavigationControllerDelegate
-     
-     @available(iOS 2.0, *)
-     optional public func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool)
-     @available(iOS 2.0, *)
-     optional public func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool)
-     
-     @available(iOS 7.0, *)
-     optional public func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask
-     @available(iOS 7.0, *)
-     optional public func navigationControllerPreferredInterfaceOrientationForPresentation(navigationController: UINavigationController) -> UIInterfaceOrientation
-     
-     @available(iOS 7.0, *)
-     optional public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
-     
-     @available(iOS 7.0, *)
-     optional public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
-     */
+
 }
 
 extension NewViewController : UIImagePickerControllerDelegate {
@@ -72,11 +65,11 @@ extension NewViewController : UIImagePickerControllerDelegate {
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // Get the image captured by the UIImagePickerController
         let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage //!!! if allowing editing
         
         // Do something with the images (based on your use case)
-//        selectedImage = editedImage
-        selectedImage = originalImage
+        selectedImage = editedImage //!!! if allowing editing
+//        selectedImage = originalImage //!!! if not allowing editing
         
         // Dismiss UIImagePickerController to go back to your original view controller
         dismissViewControllerAnimated(true, completion: {
