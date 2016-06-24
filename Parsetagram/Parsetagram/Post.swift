@@ -78,7 +78,11 @@ class Post: NSObject {
         // Add relevant fields to the object
         post["media"] = getPFFileFromImage(image) // PFFile column type
         post["author"] = PFUser.currentUser() // Pointer column type that points to PFUser
-        post["caption"] = caption
+        if let caption = caption {
+            post["caption"] = caption
+        } else {
+            post["caption"] = ""
+        }
         post["ratio"] = image!.size.height / image!.size.width
         post["likesCount"] = 0
         post["commentsCount"] = 0

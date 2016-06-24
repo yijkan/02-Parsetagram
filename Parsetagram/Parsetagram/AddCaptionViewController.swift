@@ -76,7 +76,14 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
         view.endEditing(true)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
-        Post.postImage(selectedImage, withCaption: captionText.text) { (success: Bool, error: NSError?) in
+        var caption:String?
+        if captionText.textColor == UIColor.lightGrayColor() {
+            caption = nil
+        } else {
+            caption = captionText.text
+        }
+        
+        Post.postImage(selectedImage, withCaption: caption) { (success: Bool, error: NSError?) in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
                 print("Error: \(error.localizedDescription)")

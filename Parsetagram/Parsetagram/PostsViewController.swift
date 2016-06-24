@@ -68,7 +68,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     
     func refreshAction(refreshControl: UIRefreshControl) {
         loadCount = 1
-        queryPosts(fale)
+        queryPosts(false)
     }
 
     

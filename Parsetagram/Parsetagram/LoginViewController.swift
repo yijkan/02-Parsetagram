@@ -98,10 +98,4 @@ class LoginViewController: UIViewController {
         }
     }
     
-//    func segueForUnwindingToViewController(toViewController: UIViewController,
-//                                           fromViewController: UIViewController, identifier: String) -> UIStoryboardSegue {
-//        let segue = CustomUnwindSegue(identifier: identifier, source: fromViewController, destination: toViewController)
-//        segue.animationType = .SwipeDown
-//        return segue
-//    }
 }
