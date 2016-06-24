@@ -12,8 +12,8 @@ import MBProgressHUD
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
+    var oldUser:PFUser!
     var posts:[PFObject] = []
-    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
     var loadCount = 0
@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var networkErrorView:UIView!
     
     override func viewDidLoad() {
-        usernameLabel.text = PFUser.currentUser()!.username
+        oldUser = PFUser.currentUser()
         
         postsTableView.dataSource = self
         postsTableView.delegate = self
@@ -45,10 +45,16 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         var insets = postsTableView.contentInset;
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         postsTableView.contentInset = insets
-        
-        queryPosts(true)
     }
 
+    override func viewWillAppear(animated:Bool) {
+        if PFUser.currentUser() != oldUser { // new user has logged in 
+            self.navigationItem.title = PFUser.currentUser()!.username
+            queryPosts(true)
+            oldUser = PFUser.currentUser()
+        }
+    }
+    
     @IBAction func tappedLogout(sender: AnyObject) {
         PFUser.logOutInBackgroundWithBlock { (error: NSError?) in
             if let error = error {
@@ -111,6 +117,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 //            (segue as! CustomSegue).animationType = .SwipeDown
             let vc = segue.destinationViewController as! LoginViewController
             vc.presentedAsModal = true
+        } else if segue.identifier == "details" {
+            if let cell = sender as? PostTableViewCell {
+                let indexPath = postsTableView.indexPathForCell(cell)
+                let vc = segue.destinationViewController as! PostDetailsViewController
+                vc.post = Post.PFObject2Post(posts[indexPath!.section])
+                vc.imageViewWidth = view.frame.size.width - 40.0
+            }
         }
     }
     
