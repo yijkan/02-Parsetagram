@@ -234,17 +234,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhM-yh-SP1" userLabel="Camera">
-                                <rect key="frame" x="0.0" y="64" width="600" height="243.5"/>
+                                <rect key="frame" x="8" y="72" width="584" height="232"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="VGR-LL-Ohs">
-                                        <rect key="frame" x="236" y="20" width="128" height="128"/>
+                                        <rect key="frame" x="228" y="20" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="VGR-LL-Ohs" secondAttribute="height" multiplier="1:1" id="u5b-va-akj"/>
                                             <constraint firstAttribute="width" priority="750" constant="128" id="zut-WW-Obo"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take new photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asr-BD-un1">
-                                        <rect key="frame" x="240" y="156" width="121" height="21"/>
+                                        <rect key="frame" x="232" y="156" width="121" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -263,17 +263,17 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ta-ae-nfp" userLabel="Roll">
-                                <rect key="frame" x="0.0" y="307" width="600" height="243.5"/>
+                                <rect key="frame" x="8" y="312" width="584" height="231"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camera Roll" translatesAutoresizingMaskIntoConstraints="NO" id="lDC-m6-nJf">
-                                        <rect key="frame" x="236" y="20" width="128" height="128"/>
+                                        <rect key="frame" x="228" y="20" width="128" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="width" priority="750" constant="128" id="7nL-uZ-Ovp"/>
                                             <constraint firstAttribute="width" secondItem="lDC-m6-nJf" secondAttribute="height" multiplier="1:1" id="JdE-ne-L7o"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose from Camera Roll" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emq-Us-mHr">
-                                        <rect key="frame" x="203" y="156" width="195" height="21"/>
+                                        <rect key="frame" x="195" y="156" width="195" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -294,18 +294,20 @@
                         </subviews>
                         <color key="backgroundColor" red="0.9327123397" green="0.91324765289999998" blue="0.84993306499999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="rhM-yh-SP1" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leading" id="62t-1X-rdO"/>
-                            <constraint firstItem="y68-rG-t7y" firstAttribute="top" secondItem="3Ta-ae-nfp" secondAttribute="bottom" id="BOz-Pm-DZi"/>
-                            <constraint firstAttribute="trailing" secondItem="rhM-yh-SP1" secondAttribute="trailing" id="JYo-5q-o6C"/>
-                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leading" id="etL-TR-k8p"/>
-                            <constraint firstAttribute="trailing" secondItem="3Ta-ae-nfp" secondAttribute="trailing" id="gOA-67-r1x"/>
-                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="top" secondItem="rhM-yh-SP1" secondAttribute="bottom" id="odA-hv-GqT"/>
-                            <constraint firstItem="rhM-yh-SP1" firstAttribute="top" secondItem="QaK-7y-x5t" secondAttribute="bottom" id="t9O-BX-Fep"/>
+                            <constraint firstItem="rhM-yh-SP1" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leading" constant="8" id="62t-1X-rdO"/>
+                            <constraint firstItem="y68-rG-t7y" firstAttribute="top" secondItem="3Ta-ae-nfp" secondAttribute="bottom" constant="8" id="BOz-Pm-DZi"/>
+                            <constraint firstAttribute="trailing" secondItem="rhM-yh-SP1" secondAttribute="trailing" constant="8" id="JYo-5q-o6C"/>
+                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="leading" secondItem="R9c-tR-zQb" secondAttribute="leading" constant="8" id="etL-TR-k8p"/>
+                            <constraint firstAttribute="trailing" secondItem="3Ta-ae-nfp" secondAttribute="trailing" constant="8" id="gOA-67-r1x"/>
+                            <constraint firstItem="3Ta-ae-nfp" firstAttribute="top" secondItem="rhM-yh-SP1" secondAttribute="bottom" constant="8" id="odA-hv-GqT"/>
+                            <constraint firstItem="rhM-yh-SP1" firstAttribute="top" secondItem="QaK-7y-x5t" secondAttribute="bottom" constant="8" id="t9O-BX-Fep"/>
                             <constraint firstItem="3Ta-ae-nfp" firstAttribute="height" secondItem="rhM-yh-SP1" secondAttribute="height" id="tf0-rv-vJE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Photo" id="lnL-Ih-Tvo"/>
                     <connections>
+                        <outlet property="cameraView" destination="rhM-yh-SP1" id="WHV-Zg-6pj"/>
+                        <outlet property="rollView" destination="3Ta-ae-nfp" id="0WB-U9-iP7"/>
                         <segue destination="jgh-Zn-HFR" kind="show" identifier="selectedImage" id="gUH-g5-qw8"/>
                     </connections>
                 </viewController>

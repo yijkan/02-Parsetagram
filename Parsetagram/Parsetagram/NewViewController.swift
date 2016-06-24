@@ -12,9 +12,19 @@ import Parse
 class NewViewController: UIViewController {
     
     var selectedImage:UIImage!
+    @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var rollView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cameraView.layer.cornerRadius = 5
+        cameraView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cameraView.layer.borderWidth = 1
+        
+        rollView.layer.cornerRadius = 5
+        rollView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        rollView.layer.borderWidth = 1
     }
 
     @IBAction func tappedCameraButton(sender: AnyObject) {
