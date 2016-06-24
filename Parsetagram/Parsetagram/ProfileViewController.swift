@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         oldUser = PFUser.currentUser()
+        self.navigationItem.title = oldUser.username
         
         postsTableView.dataSource = self
         postsTableView.delegate = self
@@ -45,6 +46,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         var insets = postsTableView.contentInset;
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         postsTableView.contentInset = insets
+        
+        queryPosts(true)
     }
 
     override func viewWillAppear(animated:Bool) {

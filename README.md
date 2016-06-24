@@ -2,7 +2,7 @@
 
 **Parsetagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **20.5** hours spent in total
+Time spent: **23** hours spent in total
 
 ## User Stories
 
@@ -37,7 +37,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. I think I need to work on doing things one at a time, because I'd get caught up in trying to figure out exactly what layout and behavior I want for the app before I get anything done but this is obviously not good for productivity
+1.
 2.
 
 ## Video Walkthrough
@@ -56,10 +56,14 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
 - [MBProgressHUD]
 - [warchimede's Custom Swift Animations](https://github.com/warchimede/CustomSegues)
+- UIColorFromHex function from [here](https://coderwall.com/p/6rfitq/ios-ui-colors-with-hex-values-in-swfit)
+- Icons: [App icon](http://iconmonstr.com/photo-camera-9/), [Home tab](https://www.iconfinder.com/icons/216242/home_icon#size=128), [New tab](http://iconmonstr.com/photo-camera-8/), [Profile tab](https://thenounproject.com/search/?q=person&i=961), [Camera button](https://thenounproject.com/term/camera/476/), [Camera roll button](https://thenounproject.com/term/photo-album/265638/)
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Auto Layout was generally very difficult to work with.
+Also, I think I need to work on doing things one at a time, because since the functionality and UI of the app are interconnected, I end up trying to figure everything out at once instead of starting with something and building it up iteratively. I want the design and layout to make sense in context of the features of the app, but I don't want to assume that I will be able to implement all of the features that I have in mind (ex: create a button for something that I "will" get to but end up not being able to figure out or finish that feature). At the same time, I don't want to have to go back and add something to a layout that I already spent a lot of time putting together.
+Next time I will probably work on getting the coding done first while keeping track of the UI elements I'll need and then worry about getting everything connected.
 
 ## License
 

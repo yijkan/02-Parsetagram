@@ -21,6 +21,7 @@ func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
 let blackColor = UIColor.blackColor()
 let whiteColor = UIColor.whiteColor()
 let bgColor:UIColor! = UIColorFromHex(0xeee9d8)
+let barColor:UIColor! = UIColorFromHex(0xF2F1EB)
 let tintColor:UIColor! = UIColorFromHex(0x953800)
 
 func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, failure: () -> Void,completion: () -> Void) {
