@@ -9,6 +9,20 @@
 import UIKit
 import Parse
 
+// this function is copied from https://coderwall.com/p/6rfitq/ios-ui-colors-with-hex-values-in-swfit
+func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
+    let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
+    let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
+    let blue = CGFloat(rgbValue & 0xFF)/256.0
+    
+    return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
+}
+
+let blackColor = UIColor.blackColor()
+let whiteColor = UIColor.whiteColor()
+let bgColor:UIColor! = UIColorFromHex(0xeee9d8)
+let tintColor:UIColor! = UIColorFromHex(0x953800)
+
 func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, failure: () -> Void,completion: () -> Void) {
     var query:PFQuery!
     

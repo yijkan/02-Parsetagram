@@ -29,6 +29,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        // ??? this would look nice but there's a white gap
+//        refreshControl.backgroundColor = bgColor     
         postsTableView.insertSubview(refreshControl, atIndex: 0)
 
         postsTableView.estimatedRowHeight = 200

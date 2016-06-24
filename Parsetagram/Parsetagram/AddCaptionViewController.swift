@@ -29,8 +29,8 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
         captionText.textColor = UIColor.lightGrayColor()
         captionText.text = captionPlaceholderText
         captionText.layer.cornerRadius = 5
-        captionText.layer.borderColor = UIColor.darkGrayColor().CGColor
-        captionText.layer.borderWidth = 1
+//        captionText.layer.borderColor = UIColor.darkGrayColor().CGColor
+//        captionText.layer.borderWidth = 1
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
