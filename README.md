@@ -65,7 +65,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
-- [Parse]
+- [Parse on Heroku]
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
 - [MBProgressHUD]
 - [warchimede's Custom Swift Animations](https://github.com/warchimede/CustomSegues)
