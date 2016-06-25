@@ -16,20 +16,21 @@ import ParseUI
 class PostTableViewCell : UITableViewCell {
     
     @IBOutlet weak var postImageView: PFImageView!
-    var imageViewWidth: CGFloat!
+    var imageViewWidth: CGFloat! // allows for pre-resizing the postImageView before it appears
     @IBOutlet weak var postImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var captionLabel: UILabel!
     
     var post:Post! {
-        didSet { /** set the caption and  **/
+        didSet {
             if let caption = self.post.cap {
                 self.captionLabel.text = caption
             } else {
                 self.captionLabel.hidden = true
             }
             
+            // resize the imageView to match its contents
             var presized:Bool = false
-            if let ratio = post.heightToWidth {
+            if let ratio = post.heightToWidth { // use the saved ratio if available
                 self.postImageHeightConstraint.constant = imageViewWidth * ratio
                 presized = true
             }
@@ -44,21 +45,22 @@ class PostTableViewCell : UITableViewCell {
                 } else {
                     if let image = image {
 
-                        // resizes the imageView to the size of the image
+                        // resizes the imageView to the size of the image if we haven't already
                         if !presized {
                             let imageHeight = image.size.height
                             let imageWidth = image.size.width
                             self.postImageHeightConstraint.constant = self.imageViewWidth * imageHeight / imageWidth
+                            // save the ratio for next time
                             let query = PFQuery(className: "Post")
                             query.getObjectInBackgroundWithId(self.post.id) {
                                 (post: PFObject?, error: NSError?) -> Void in
                                     if let error = error {
                                         print("Error: \(error.localizedDescription)")
                                     } else if let post = post {
-                                        post["ratio"] = imageHeight / imageWidth 
+                                        post["ratio"] = imageHeight / imageWidth
                                         post.saveInBackground()
                                     }
-                                 }
+                            }
                         }
                     }
                 }

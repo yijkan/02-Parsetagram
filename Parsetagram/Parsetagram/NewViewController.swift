@@ -27,6 +27,7 @@ class NewViewController: UIViewController {
         rollView.layer.borderWidth = 1
     }
 
+    /*** open camera ***/
     @IBAction func tappedCameraButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
@@ -36,6 +37,7 @@ class NewViewController: UIViewController {
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    /*** open camera roll ***/
     @IBAction func tappedCameraRollButton(sender: AnyObject) {
         let vc = UIImagePickerController()
         vc.delegate = self
@@ -44,12 +46,11 @@ class NewViewController: UIViewController {
         
         self.presentViewController(vc, animated: true, completion: nil)
     }
-    // Post.postUserImage(image: UIImage?, withCaption caption: String?, withCompletion completion: PFBooleanResultBlock?)
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
         
-        if segue.identifier == "selectedImage" {
+        if segue.identifier == "selectedImage" { // once we've selected an image, pass it to AddCaption
             let vc = segue.destinationViewController as! AddCaptionViewController
             vc.selectedImage = selectedImage
         }
@@ -63,24 +64,17 @@ extension NewViewController : UINavigationControllerDelegate {
 extension NewViewController : UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        // Get the image captured by the UIImagePickerController
+        /*** Get the image captured by the UIImagePickerController ***/
         let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage //!!! if allowing editing
         
-        // Do something with the images (based on your use case)
+        /*** save the image we want ***/
         selectedImage = editedImage //!!! if allowing editing
 //        selectedImage = originalImage //!!! if not allowing editing
         
-        // Dismiss UIImagePickerController to go back to your original view controller
+        /*** dismiss UIImagePickerController and segue to AddCaption ***/
         dismissViewControllerAnimated(true, completion: {
             self.performSegueWithIdentifier("selectedImage", sender: nil)
         })
     }
-    
-    /* UIImagePickerControllerDelegate
-     @available(iOS 2.0, *)
-     optional public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
-     @available(iOS 2.0, *)
-     optional public func imagePickerControllerDidCancel(picker: UIImagePickerController)
-     */
 }

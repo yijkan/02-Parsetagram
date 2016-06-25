@@ -19,14 +19,6 @@ class Post: NSObject {
     var author: PFUser!
     var heightToWidth: CGFloat?
     
-    init(id: String, image: PFFile, cap: String?, author: PFUser) {
-        self.id = id
-        self.image = image
-        self.timestamp = "timestamp"
-        self.cap = cap
-        self.author = author
-    }
-    
     init(id: String, image: PFFile, timestamp:String, cap: String?, author: PFUser) {
         self.id = id
         self.image = image
@@ -44,6 +36,7 @@ class Post: NSObject {
         self.heightToWidth = ratio
     }
 
+    // !!! if images get too big
     class func resizeImage(image: UIImage, newSize: CGSize) -> UIImage {
         let resizeImageView = UIImageView(frame: CGRectMake(0, 0, newSize.width, newSize.height))
         resizeImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -56,6 +49,7 @@ class Post: NSObject {
         return newImage
     }
     
+    /*** allows us to save the image ***/
     class func getPFFileFromImage(image: UIImage?) -> PFFile? {
         // check if image is not nil
         if let image = image {
@@ -67,6 +61,7 @@ class Post: NSObject {
         return nil
     }
     
+    /*** makes the network request to post a new post ***/
     class func postImage(image: UIImage?, withCaption caption: String?,
                          withCompletion completion:PFBooleanResultBlock?) {
         // ??? maybe resize the image
@@ -91,6 +86,7 @@ class Post: NSObject {
         post.saveInBackgroundWithBlock(completion)
     }
     
+    /*** converts an instance of a PFObject to a Post object ***/
     class func PFObject2Post(object: PFObject) -> Post {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMM dd"

@@ -19,21 +19,22 @@ class PostDetailsViewController : UIViewController {
     
     var post:Post!
     var imageViewWidth:CGFloat!
+    var timestampPrefix:String = " on " // top of the view reads "[username] on [timestamp]"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         authorLabel.text = post.author.username
-        timestampLabel.text = " on " + post.timestamp
+        timestampLabel.text = timestampPrefix + post.timestamp
         
         if let cap = post.cap {
             captionLabel.text = cap
         } else {
-            captionLabel.hidden = true
+            captionLabel.hidden = true // hide captionLabel if there is no caption. allow the image to reach the bottom of the screen
         }
         
         var presized:Bool = false
-        if let ratio = post.heightToWidth {
+        if let ratio = post.heightToWidth { // resize imageView with saved ratio if available
             self.postImageHeightConstraint.constant = imageViewWidth * ratio
             presized = true
         }
@@ -48,7 +49,7 @@ class PostDetailsViewController : UIViewController {
             } else {
                 if let image = image {
                     if !presized {
-                        // resizes the imageView to the size of the image
+                        // resizes the imageView to the size of the image if it hasn't been already
                         let imageHeight = image.size.height
                         let imageWidth = image.size.width
                     

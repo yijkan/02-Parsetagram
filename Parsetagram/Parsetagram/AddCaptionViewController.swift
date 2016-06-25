@@ -10,7 +10,7 @@ import UIKit
 import MBProgressHUD
 
 class AddCaptionViewController: UIViewController, UITextViewDelegate {
-
+    /*** we get the image that the user selected in NewViewController ***/
     var selectedImage: UIImage!
     
     @IBOutlet weak var selectedImageView: UIImageView!
@@ -21,21 +21,20 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectedImageView.clipsToBounds = true
-        selectedImageView.contentMode = .ScaleAspectFit
-        selectedImageView.image = selectedImage
+        selectedImageView.clipsToBounds = true // don't let image show beyond imageView
+        selectedImageView.contentMode = .ScaleAspectFit // fit the image in the imageView
+        selectedImageView.image = selectedImage // set the image we got
         
         captionText.delegate = self
         captionText.textColor = UIColor.lightGrayColor()
         captionText.text = captionPlaceholderText
         captionText.layer.cornerRadius = 5
-//        captionText.layer.borderColor = UIColor.darkGrayColor().CGColor
-//        captionText.layer.borderWidth = 1
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    /*** to adjust autolayout constraints as keyboard shows/hides ***/
     func onKeyboardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo
         let keyboardFrame = userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
@@ -57,6 +56,7 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
         view.endEditing(true)
     }
     
+    /*** fakes placeholder text for the textView ***/
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = nil
@@ -71,7 +71,6 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    
     @IBAction func tappedPostButton(sender: AnyObject) {
         view.endEditing(true)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -83,6 +82,7 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
             caption = captionText.text
         }
         
+        /*** post the image and segue to homepage ***/
         Post.postImage(selectedImage, withCaption: caption) { (success: Bool, error: NSError?) in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {

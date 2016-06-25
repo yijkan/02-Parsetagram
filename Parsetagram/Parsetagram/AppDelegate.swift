@@ -32,8 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
-//        (self.window?.rootViewController as! UITabBarController).tabBar.barTintColor = tintColor
-        
+        /*** change tab bar and navigation bar colors ***/
         UITabBar.appearance().tintColor = tintColor
         UITabBar.appearance().barTintColor = barColor
         UINavigationBar.appearance().barTintColor = barColor

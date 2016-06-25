@@ -12,28 +12,29 @@ import MBProgressHUD
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
-    var oldUser:PFUser!
+    var oldUser:PFUser! // keeps track of whether the user logged in has changed since last loading the profile
     var posts:[PFObject] = []
     @IBOutlet weak var postsTableView: UITableView!
     var refreshControl:UIRefreshControl!
-    var loadCount = 0
+    var loadCount = 0 // how many infinite scroll loads we've done
     var isLoadingMore:Bool = false
-    var loadingMoreView:InfiniteScrollActivityView?
+    var loadingMoreView:InfiniteScrollActivityView? // the view when infinite scroll loading
     @IBOutlet weak var networkErrorView:UIView!
     
     override func viewDidLoad() {
-        oldUser = PFUser.currentUser()
         self.navigationItem.title = oldUser.username
         
         postsTableView.dataSource = self
         postsTableView.delegate = self
 
+        /*** for pull to refresh ***/
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        // ??? this would look nice but there's a white gap
-//        refreshControl.backgroundColor = bgColor     
+        // ??? this would look nice instead of the white pull to refresh but there's a white gap
+//        refreshControl.backgroundColor = bgColor
         postsTableView.insertSubview(refreshControl, atIndex: 0)
 
+        /*** to automatically resize row height ***/
         postsTableView.estimatedRowHeight = 200
         postsTableView.rowHeight = UITableViewAutomaticDimension
 
@@ -47,11 +48,14 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         postsTableView.contentInset = insets
         
+        /*** load posts with HUD ***/
         queryPosts(true)
+        // save what user's profile we loaded
+        oldUser = PFUser.currentUser()
     }
 
     override func viewWillAppear(animated:Bool) {
-        if PFUser.currentUser() != oldUser { // new user has logged in 
+        if PFUser.currentUser() != oldUser { // new user has logged in. load a new profile
             self.navigationItem.title = PFUser.currentUser()!.username
             queryPosts(true)
             oldUser = PFUser.currentUser()
@@ -71,6 +75,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         if useHUD {
             MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         }
+        /*** load only current user's posts ***/
         utilQuery(loadCount, loadAll: false, success: { (posts:[PFObject]) in
             fadeOut(self.networkErrorView)
             self.posts = self.posts + posts
@@ -116,11 +121,10 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "logout" {
-//            (segue as! CustomSegue).animationType = .SwipeDown
+        if segue.identifier == "logout" { // log out
             let vc = segue.destinationViewController as! LoginViewController
             vc.presentedAsModal = true
-        } else if segue.identifier == "details" {
+        } else if segue.identifier == "details" { // view post details
             if let cell = sender as? PostTableViewCell {
                 let indexPath = postsTableView.indexPathForCell(cell)
                 let vc = segue.destinationViewController as! PostDetailsViewController
@@ -129,7 +133,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
 }
 
 extension ProfileViewController : UITableViewDataSource {    

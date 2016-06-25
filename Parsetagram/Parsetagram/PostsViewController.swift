@@ -16,13 +16,12 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     
     var posts:[PFObject] = []
     @IBOutlet weak var postsTableView: UITableView!
-    var refreshControl:UIRefreshControl!
-    var loadCount = 0
+    var refreshControl:UIRefreshControl! // for pull to refresh
+    var loadCount = 0 // how many infinite scroll loads we've done
     var isLoadingMore:Bool = false
-    var loadingMoreView:InfiniteScrollActivityView?
-    
+    var loadingMoreView:InfiniteScrollActivityView? // the view when infinite scroll loading
 
-    
+    /*** loads more posts to append to posts, reloads the table, with loading animations ***/
     func queryPosts(useHUD:Bool) {
         if useHUD {
             MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -44,23 +43,26 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewDidLoad() {        
+    override func viewDidLoad() {
+        /*** for pull to refresh ***/
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         postsTableView.insertSubview(refreshControl, atIndex: 0)
         
+        /*** to work with table ***/
         postsTableView.dataSource = self
         postsTableView.delegate = self
         
-        let headerNib = UINib(nibName: "PostTableViewHeader", bundle: nil)
+        // ??? not sure how to get this working
+//        let headerNib = UINib(nibName: "PostTableViewHeader", bundle: nil)
+//        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
+//        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         
-        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
-        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
-        
+        /*** to automatically resize row heights ***/
         postsTableView.estimatedRowHeight = 200
         postsTableView.rowHeight = UITableViewAutomaticDimension
         
-        /***** For Infinite Scroll *****/
+        /***** for infinite scroll *****/
         let frame = CGRectMake(0, postsTableView.contentSize.height, postsTableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
         loadingMoreView!.hidden = true
@@ -130,11 +132,11 @@ extension PostsViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let post = Post.PFObject2Post(posts[section])
-        // !!! not sure how to get this working
+        // ??? not sure how to get this working
 //        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
 //        headerView.authorLabel.text = post.author.username
 
-        // !!! fallback. it works
+        // !!! backup for custon header view. it works
         let headerView = UITableViewHeaderFooterView.init(reuseIdentifier: "header")
         let authorLabel = UILabel(frame: CGRect(x: 15, y: 15, width: 100, height: 20))
         authorLabel.text = post.author.username

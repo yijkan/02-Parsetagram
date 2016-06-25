@@ -9,8 +9,7 @@
 import UIKit
 import Parse
 
-/*** Not sure how to get this working ***/
-
+/*** Not sure how to get this working, so it's just here for now ***/
 class PostTableViewHeader : UITableViewHeaderFooterView {
    
     @IBOutlet var headerContentView: UIView!

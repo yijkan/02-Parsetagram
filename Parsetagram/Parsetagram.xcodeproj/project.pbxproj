@@ -10,12 +10,10 @@
 		896FCF5A1D1894F20002C7CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF591D1894F20002C7CD /* LoginViewController.swift */; };
 		896FCF5D1D18A3570002C7CD /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF5C1D18A3570002C7CD /* PostsViewController.swift */; };
 		896FCF601D18A3720002C7CD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF5F1D18A3720002C7CD /* Post.swift */; };
-		896FCF621D18A7FD0002C7CD /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF611D18A7FD0002C7CD /* MainTabBarController.swift */; };
 		896FCF641D18A8F80002C7CD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF631D18A8F80002C7CD /* ProfileViewController.swift */; };
 		896FCF661D18B4F90002C7CD /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF651D18B4F90002C7CD /* CustomSegue.swift */; };
 		896FCF6B1D18BC150002C7CD /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF6A1D18BC150002C7CD /* PostTableViewCell.swift */; };
 		896FCF6F1D18C1570002C7CD /* NewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF6E1D18C1570002C7CD /* NewViewController.swift */; };
-		896FCF711D19A77A0002C7CD /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF701D19A77A0002C7CD /* EditViewController.swift */; };
 		896FCF731D19A7A50002C7CD /* AddCaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */; };
 		896FCF751D19DE920002C7CD /* PostTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */; };
 		896FCF771D19F8EC0002C7CD /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */; };
@@ -33,12 +31,10 @@
 		896FCF591D1894F20002C7CD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		896FCF5C1D18A3570002C7CD /* PostsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
 		896FCF5F1D18A3720002C7CD /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		896FCF611D18A7FD0002C7CD /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		896FCF631D18A8F80002C7CD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		896FCF651D18B4F90002C7CD /* CustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
 		896FCF6A1D18BC150002C7CD /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		896FCF6E1D18C1570002C7CD /* NewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewViewController.swift; sourceTree = "<group>"; };
-		896FCF701D19A77A0002C7CD /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCaptionViewController.swift; sourceTree = "<group>"; };
 		896FCF741D19DE920002C7CD /* PostTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewHeader.swift; sourceTree = "<group>"; };
 		896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
@@ -73,10 +69,8 @@
 			children = (
 				896FCF591D1894F20002C7CD /* LoginViewController.swift */,
 				896FCF5C1D18A3570002C7CD /* PostsViewController.swift */,
-				896FCF611D18A7FD0002C7CD /* MainTabBarController.swift */,
 				896FCF631D18A8F80002C7CD /* ProfileViewController.swift */,
 				896FCF6E1D18C1570002C7CD /* NewViewController.swift */,
-				896FCF701D19A77A0002C7CD /* EditViewController.swift */,
 				896FCF721D19A7A50002C7CD /* AddCaptionViewController.swift */,
 				896FCF761D19F8EC0002C7CD /* PostDetailsViewController.swift */,
 			);
@@ -279,7 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				896FCF731D19A7A50002C7CD /* AddCaptionViewController.swift in Sources */,
-				896FCF711D19A77A0002C7CD /* EditViewController.swift in Sources */,
 				896FCF641D18A8F80002C7CD /* ProfileViewController.swift in Sources */,
 				896FCF7F1D1A27820002C7CD /* util.swift in Sources */,
 				896FCF771D19F8EC0002C7CD /* PostDetailsViewController.swift in Sources */,
@@ -288,7 +281,6 @@
 				896FCF6B1D18BC150002C7CD /* PostTableViewCell.swift in Sources */,
 				896FCF751D19DE920002C7CD /* PostTableViewHeader.swift in Sources */,
 				896FCF791D1A0EEA0002C7CD /* InfiniteScrollActivityView.swift in Sources */,
-				896FCF621D18A7FD0002C7CD /* MainTabBarController.swift in Sources */,
 				896FCF661D18B4F90002C7CD /* CustomSegue.swift in Sources */,
 				896FCF6F1D18C1570002C7CD /* NewViewController.swift in Sources */,
 				898E84C81D1882B900D7A9A7 /* AppDelegate.swift in Sources */,

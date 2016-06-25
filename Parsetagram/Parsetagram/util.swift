@@ -18,12 +18,20 @@ func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
     return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
 }
 
+// color constants
 let blackColor = UIColor.blackColor()
 let whiteColor = UIColor.whiteColor()
 let bgColor:UIColor! = UIColorFromHex(0xeee9d8)
 let barColor:UIColor! = UIColorFromHex(0xF2F1EB)
 let tintColor:UIColor! = UIColorFromHex(0x953800)
 
+/** a multipurpose function for queries
+  * loadCount specifies how many posts have already been loaded (ie infinite scrolling)
+  * loadAll: if set to false, only loads current user's posts
+  * success: called if posts are loaded successfully
+  * failure: called if the query causes an error
+  * completion: called at the end whether the query is successful or not
+  */
 func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, failure: () -> Void,completion: () -> Void) {
     var query:PFQuery!
     
@@ -57,6 +65,7 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, fai
     }
 }
 
+/*** fade in the view ***/
 func fadeIn(view:UIView) {
     view.alpha = 0.0
     UIView.animateWithDuration(0.3, animations: { () in
@@ -64,6 +73,7 @@ func fadeIn(view:UIView) {
     })
 }
 
+/*** fade out the view ***/
 func fadeOut(view:UIView) {
     if view.alpha > 0.0 {
         UIView.animateWithDuration(0.3, animations: { () in

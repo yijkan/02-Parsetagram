@@ -10,8 +10,11 @@ import UIKit
 import MBProgressHUD
 import Parse
 
+/*** ViewController for logging in screen ***/
 class LoginViewController: UIViewController {
-
+    /** if this ViewController was presented modally, dismiss it when finished 
+     *  otherwise, perform a new segue to the homepage
+     */
     var presentedAsModal: Bool = false
     @IBOutlet weak var usernameLabel: UITextField!
     @IBOutlet weak var passwordLabel: UITextField!
@@ -23,6 +26,7 @@ class LoginViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    /*** The next two adjust autolayout constraints when the keyboard shows/hides ***/
     func keyboardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo
         let keyboardFrame = userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
@@ -42,6 +46,7 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
     
+    /*** attempts to sign into existing account ***/
     @IBAction func didTapSignIn(sender: AnyObject) {
         view.endEditing(true)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -66,6 +71,7 @@ class LoginViewController: UIViewController {
         
     }
 
+    /*** attempts to create a new user ***/
     @IBAction func didTapSignUp(sender: AnyObject) {
         view.endEditing(true)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -83,9 +89,11 @@ class LoginViewController: UIViewController {
                     // TODO username is taken
                 }
             } else {
-                // ??? maybe change segue
-//                self.dismissViewControllerAnimated(true, completion: nil)
-                self.performSegueWithIdentifier("login", sender: sender)
+                if self.presentedAsModal {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    self.performSegueWithIdentifier("login", sender: sender)
+                }
             }
         }
         

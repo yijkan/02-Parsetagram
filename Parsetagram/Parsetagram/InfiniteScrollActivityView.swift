@@ -8,6 +8,7 @@
 
 import UIKit
 
+/*** the view to be shown while loading for infinite scroll ***/
 class InfiniteScrollActivityView : UIView {
     var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
     static let defaultHeight:CGFloat = 60.0
