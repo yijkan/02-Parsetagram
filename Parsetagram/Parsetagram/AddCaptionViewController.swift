@@ -99,7 +99,9 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
         if segue.identifier == postedSegue {
-            (segue as! CustomSegue).animationType = .SwipeDown
+            if let segue = segue as? CustomSegue {
+                segue.animationType = .SwipeDown
+            }
         }
     }
     

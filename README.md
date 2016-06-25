@@ -2,7 +2,7 @@
 
 **Parsetagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **24** hours spent in total
+Time spent: **24.5** hours spent in total
 
 ## User Stories
 
@@ -43,8 +43,14 @@ Please list two areas of the assignment you'd like to **discuss further with you
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+User can sign up and start viewing posts. User can also scroll infinitely and pull to refresh. Tapping a post leads to a details page
+<img src='http://i.imgur.com/lbGvvEF.gif' title='signup-viewing' width='' alt='Sign up and view posts' />
+User can upload or take a new photo
+<img src='http://i.imgur.com/trvgGGX.gif' title='new' width='' alt='Make a new post' />
+User can view their own posts
+<img src='http://i.imgur.com/QocXbqK.gif' title='profile' width='' alt='View only your own posts' />
+User can log out, log in, and have logged-in status preserved
+<img src='http://i.imgur.com/jG1Dvuo.gif' title='logout' width='' alt='Log out, log in, stay logged in' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

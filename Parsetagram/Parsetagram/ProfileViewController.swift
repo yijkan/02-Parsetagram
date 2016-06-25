@@ -61,6 +61,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated:Bool) {
         if PFUser.currentUser() != oldUser { // new user has logged in. load a new profile
             self.navigationItem.title = PFUser.currentUser()!.username
+            loadCount = 0
+            posts = []
             queryPosts(true)
             oldUser = PFUser.currentUser()
         }
