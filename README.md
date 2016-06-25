@@ -37,19 +37,26 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Apparently editing images has a bug when you try to "edit" an image from the camera where you can't move the cropping field.
+2. Also iOS causes orientation issues if you take the picture with the camera oriented differently but don't edit them.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 User can sign up and start viewing posts. User can also scroll infinitely and pull to refresh. Tapping a post leads to a details page
+
 <img src='http://i.imgur.com/lbGvvEF.gif' title='signup-viewing' width='' alt='Sign up and view posts' />
+
 User can upload or take a new photo
+
 <img src='http://i.imgur.com/trvgGGX.gif' title='new' width='' alt='Make a new post' />
+
 User can view their own posts
+
 <img src='http://i.imgur.com/QocXbqK.gif' title='profile' width='' alt='View only your own posts' />
+
 User can log out, log in, and have logged-in status preserved
+
 <img src='http://i.imgur.com/jG1Dvuo.gif' title='logout' width='' alt='Log out, log in, stay logged in' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
