@@ -64,11 +64,12 @@ class Post: NSObject {
     /*** makes the network request to post a new post ***/
     class func postImage(image: UIImage?, withCaption caption: String?,
                          withCompletion completion:PFBooleanResultBlock?) {
-        // ??? maybe resize the image
+        
+        // TODO maybe resize the image
 //        let image = resizeImage(image!, newSize: CGSize(width:100, height:100))         
         
         // Create Parse object PFObject
-        let post = PFObject(className: "Post")
+        let post = PFObject(className: parseClassname)
         
         // Add relevant fields to the object
         post["media"] = getPFFileFromImage(image) // PFFile column type

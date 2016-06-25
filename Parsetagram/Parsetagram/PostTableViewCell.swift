@@ -41,7 +41,7 @@ class PostTableViewCell : UITableViewCell {
 
             self.postImageView.loadInBackground { (image:UIImage?, error:NSError?) in
                 if let error = error {
-                    print("Error: \(error.localizedDescription)")
+                    print(errorPrefix + error.localizedDescription)
                 } else {
                     if let image = image {
 
@@ -51,11 +51,11 @@ class PostTableViewCell : UITableViewCell {
                             let imageWidth = image.size.width
                             self.postImageHeightConstraint.constant = self.imageViewWidth * imageHeight / imageWidth
                             // save the ratio for next time
-                            let query = PFQuery(className: "Post")
+                            let query = PFQuery(className: parseClassname)
                             query.getObjectInBackgroundWithId(self.post.id) {
                                 (post: PFObject?, error: NSError?) -> Void in
                                     if let error = error {
-                                        print("Error: \(error.localizedDescription)")
+                                        print(errorPrefix + error.localizedDescription)
                                     } else if let post = post {
                                         post["ratio"] = imageHeight / imageWidth
                                         post.saveInBackground()

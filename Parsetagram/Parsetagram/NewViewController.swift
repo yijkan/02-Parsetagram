@@ -15,6 +15,9 @@ class NewViewController: UIViewController {
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var rollView: UIView!
     
+    // string constants
+    let selectedImageSegue = "selectedImage"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +53,7 @@ class NewViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
         
-        if segue.identifier == "selectedImage" { // once we've selected an image, pass it to AddCaption
+        if segue.identifier == selectedImageSegue { // once we've selected an image, pass it to AddCaption
             let vc = segue.destinationViewController as! AddCaptionViewController
             vc.selectedImage = selectedImage
         }
@@ -74,7 +77,7 @@ extension NewViewController : UIImagePickerControllerDelegate {
         
         /*** dismiss UIImagePickerController and segue to AddCaption ***/
         dismissViewControllerAnimated(true, completion: {
-            self.performSegueWithIdentifier("selectedImage", sender: nil)
+            self.performSegueWithIdentifier(self.selectedImageSegue, sender: nil)
         })
     }
 }

@@ -13,6 +13,13 @@ import Parse
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    // string constants
+    let appId = "Parsetagram"
+    let clientKey = "YK-MasterKey"
+    let server = "https://mighty-falls-98851.herokuapp.com/parse"
+    let mainVC = "Main"
+    let loginVC = "Login"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -21,9 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // clientKey is not used on Parse open source unless explicitly configured
         Parse.initializeWithConfiguration(
             ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
-                configuration.applicationId = "Parsetagram"
-                configuration.clientKey = "YK-MasterKey"  // set to nil assuming you have not set clientKey
-                configuration.server = "https://mighty-falls-98851.herokuapp.com/parse"
+                configuration.applicationId = self.appId
+                configuration.clientKey =  self.clientKey // set to nil assuming you have not set clientKey
+                configuration.server = self.server
                 
             })
         )
@@ -40,10 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // to determine whether user is logged in and present a view controller depending on that
         let viewController : UIViewController?
         if PFUser.currentUser() != nil {
-            print("logged in as \(PFUser.currentUser()!.username!)")
-            viewController = storyBoard.instantiateViewControllerWithIdentifier("Main") as UIViewController
+            viewController = storyBoard.instantiateViewControllerWithIdentifier(mainVC) as UIViewController
         } else {
-            viewController = storyBoard.instantiateViewControllerWithIdentifier("Login") as UIViewController
+            viewController = storyBoard.instantiateViewControllerWithIdentifier(loginVC) as UIViewController
         }
         self.window?.rootViewController = viewController!
         self.window?.makeKeyAndVisible()

@@ -21,9 +21,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     var loadingMoreView:InfiniteScrollActivityView? // the view when infinite scroll loading
     @IBOutlet weak var networkErrorView:UIView!
     
+    // string constants
+    let detailsSegue = "details"
+    let logoutSegue = "logout"
+    let cellIdentifier = "post"
+    
     override func viewDidLoad() {
-        self.navigationItem.title = oldUser.username
-        
         postsTableView.dataSource = self
         postsTableView.delegate = self
 
@@ -52,6 +55,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         queryPosts(true)
         // save what user's profile we loaded
         oldUser = PFUser.currentUser()
+        self.navigationItem.title = oldUser.username
     }
 
     override func viewWillAppear(animated:Bool) {
@@ -65,7 +69,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func tappedLogout(sender: AnyObject) {
         PFUser.logOutInBackgroundWithBlock { (error: NSError?) in
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print(errorPrefix + error.localizedDescription)
             }
         }
         performSegueWithIdentifier("logout", sender: sender)
@@ -121,10 +125,10 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "logout" { // log out
+        if segue.identifier == logoutSegue { // log out
             let vc = segue.destinationViewController as! LoginViewController
             vc.presentedAsModal = true
-        } else if segue.identifier == "details" { // view post details
+        } else if segue.identifier == detailsSegue { // view post details
             if let cell = sender as? PostTableViewCell {
                 let indexPath = postsTableView.indexPathForCell(cell)
                 let vc = segue.destinationViewController as! PostDetailsViewController
@@ -141,7 +145,7 @@ extension ProfileViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PostTableViewCell
         cell.imageViewWidth = view.frame.size.width - 40.0
         cell.post = Post.PFObject2Post(posts[indexPath.row])
         return cell

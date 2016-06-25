@@ -19,7 +19,9 @@ class PostDetailsViewController : UIViewController {
     
     var post:Post!
     var imageViewWidth:CGFloat!
-    var timestampPrefix:String = " on " // top of the view reads "[username] on [timestamp]"
+    
+    // string constants
+    let timestampPrefix:String = " on " // top of the view reads "[username] on [timestamp]"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,7 @@ class PostDetailsViewController : UIViewController {
         
         self.postImageView.loadInBackground { (image:UIImage?, error:NSError?) in
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print(errorPrefix + error.localizedDescription)
             } else {
                 if let image = image {
                     if !presized {

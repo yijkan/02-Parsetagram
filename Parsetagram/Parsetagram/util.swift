@@ -25,6 +25,10 @@ let bgColor:UIColor! = UIColorFromHex(0xeee9d8)
 let barColor:UIColor! = UIColorFromHex(0xF2F1EB)
 let tintColor:UIColor! = UIColorFromHex(0x953800)
 
+// string constants
+let parseClassname = "Post" // classname for saving posts to parse
+let errorPrefix = "Error: " // precedes error messages printed
+
 /** a multipurpose function for queries
   * loadCount specifies how many posts have already been loaded (ie infinite scrolling)
   * loadAll: if set to false, only loads current user's posts
@@ -39,9 +43,9 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, fai
     
     if !loadAll {
         let predicate = NSPredicate(format:"author = %@", PFUser.currentUser()!)
-        query = PFQuery(className: "Post", predicate: predicate)
+        query = PFQuery(className: parseClassname, predicate: predicate)
     } else {
-        query = PFQuery(className: "Post")
+        query = PFQuery(className: parseClassname)
     }
     
     query.orderByDescending("createdAt")
@@ -51,7 +55,7 @@ func utilQuery(loadCount: Int, loadAll: Bool, success: ([PFObject]) -> Void, fai
     query.limit = loadNum
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
         if let error = error {
-            print("Error: \(error.localizedDescription)")
+            print(errorPrefix + error.localizedDescription)
             failure()
         } else {
             if let posts = objects {

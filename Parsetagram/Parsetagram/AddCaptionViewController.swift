@@ -15,7 +15,10 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var selectedImageView: UIImageView!
     @IBOutlet weak var captionText: UITextView!
-    var captionPlaceholderText: String! = "Add a caption"
+    
+    // string constants
+    let captionPlaceholderText: String! = "Add a caption"
+    let postedSegue = "posted"
     
     @IBOutlet weak var captionTextBottomConstraint: NSLayoutConstraint!
     
@@ -86,16 +89,16 @@ class AddCaptionViewController: UIViewController, UITextViewDelegate {
         Post.postImage(selectedImage, withCaption: caption) { (success: Bool, error: NSError?) in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print(errorPrefix + error.localizedDescription)
             } else {
-                self.performSegueWithIdentifier("posted", sender: sender)
+                self.performSegueWithIdentifier(self.postedSegue, sender: sender)
             }
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == "posted" {
+        if segue.identifier == postedSegue {
             (segue as! CustomSegue).animationType = .SwipeDown
         }
     }

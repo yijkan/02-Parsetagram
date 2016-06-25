@@ -20,6 +20,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordLabel: UITextField!
     @IBOutlet weak var signUpBottomConstraint: NSLayoutConstraint!
     
+    // string constants
+    let loginSegue = "login"
+    
     override func viewDidLoad() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         
@@ -57,13 +60,12 @@ class LoginViewController: UIViewController {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user:PFUser?, error:NSError?) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
-                print("User login failed with error \(error.localizedDescription)")
-                //TODO handle errors
+                print(errorPrefix + error.localizedDescription)
             } else {
                 if self.presentedAsModal {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
-                    self.performSegueWithIdentifier("login", sender: sender)
+                    self.performSegueWithIdentifier(self.loginSegue, sender: sender)
                 }
 
             }
@@ -84,15 +86,15 @@ class LoginViewController: UIViewController {
         newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print(errorPrefix + error.localizedDescription)
                 if error.code == 202 {
-                    // TODO username is taken
+                    // TODO username is taken and other errors
                 }
             } else {
                 if self.presentedAsModal {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
-                    self.performSegueWithIdentifier("login", sender: sender)
+                    self.performSegueWithIdentifier(self.loginSegue, sender: sender)
                 }
             }
         }

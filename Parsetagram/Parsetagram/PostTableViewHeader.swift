@@ -11,7 +11,9 @@ import Parse
 
 /*** Not sure how to get this working, so it's just here for now ***/
 class PostTableViewHeader : UITableViewHeaderFooterView {
-   
+    // string constants
+    var postsHeaderNib = "PostTableViewHeader"
+    
     @IBOutlet var headerContentView: UIView!
     @IBOutlet weak var authorLabel: UILabel!
         
@@ -26,7 +28,7 @@ class PostTableViewHeader : UITableViewHeaderFooterView {
     }
     
     func initSubviews() {
-        let nib = UINib(nibName: "PostTableViewHeader", bundle: nil)
+        let nib = UINib(nibName: postsHeaderNib, bundle: nil)
         nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)

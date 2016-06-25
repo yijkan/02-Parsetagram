@@ -16,11 +16,17 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
     
     var posts:[PFObject] = []
     @IBOutlet weak var postsTableView: UITableView!
+    
     var refreshControl:UIRefreshControl! // for pull to refresh
     var loadCount = 0 // how many infinite scroll loads we've done
     var isLoadingMore:Bool = false
     var loadingMoreView:InfiniteScrollActivityView? // the view when infinite scroll loading
 
+    // string constants
+    let detailsSegue = "postDetails"
+    let headerIdentifier = "header"
+    let cellIdentifier = "post"
+    
     /*** loads more posts to append to posts, reloads the table, with loading animations ***/
     func queryPosts(useHUD:Bool) {
         if useHUD {
@@ -53,10 +59,10 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
         postsTableView.dataSource = self
         postsTableView.delegate = self
         
-        // ??? not sure how to get this working
-//        let headerNib = UINib(nibName: "PostTableViewHeader", bundle: nil)
-//        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: "header")
-//        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        // ??? not sure how to get custom header view working
+//        let headerNib = UINib(nibName: postsHeaderNib, bundle: nil)
+//        postsTableView.registerNib(headerNib, forHeaderFooterViewReuseIdentifier: headerIdentifier)
+//        postsTableView.registerClass(PostTableViewHeader.self, forHeaderFooterViewReuseIdentifier: headerIdentifier)
         
         /*** to automatically resize row heights ***/
         postsTableView.estimatedRowHeight = 200
@@ -104,7 +110,7 @@ class PostsViewController: UIViewController, UIScrollViewDelegate {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == "postDetails" { // view post details
+        if segue.identifier == detailsSegue { // view post details
             if let cell = sender as? PostTableViewCell {
                 let indexPath = postsTableView.indexPathForCell(cell)
                 let vc = segue.destinationViewController as! PostDetailsViewController
@@ -132,12 +138,12 @@ extension PostsViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let post = Post.PFObject2Post(posts[section])
-        // ??? not sure how to get this working
+        // ??? not sure how to get custom header view working
 //        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") as! PostTableViewHeader
 //        headerView.authorLabel.text = post.author.username
 
-        // !!! backup for custon header view. it works
-        let headerView = UITableViewHeaderFooterView.init(reuseIdentifier: "header")
+        // !!! backup for custom header view. it works
+        let headerView = UITableViewHeaderFooterView.init(reuseIdentifier: headerIdentifier)
         let authorLabel = UILabel(frame: CGRect(x: 15, y: 15, width: 100, height: 20))
         authorLabel.text = post.author.username
         headerView.addSubview(authorLabel)
@@ -145,7 +151,7 @@ extension PostsViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! PostTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PostTableViewCell
         cell.imageViewWidth = view.frame.size.width - 40.0
         cell.post = Post.PFObject2Post(posts[indexPath.section])
         return cell
