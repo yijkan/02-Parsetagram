@@ -62,12 +62,11 @@ User can log out, log in, and have logged-in status preserved
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Credits
-
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
-- [Parse on Heroku]
+- Parse on [Heroku](https://www.heroku.com/)
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
-- [MBProgressHUD]
+- [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 - [warchimede's Custom Swift Animations](https://github.com/warchimede/CustomSegues)
 - UIColorFromHex function from [here](https://coderwall.com/p/6rfitq/ios-ui-colors-with-hex-values-in-swfit)
 - Icons: [App icon](http://iconmonstr.com/photo-camera-9/), [Home tab](https://www.iconfinder.com/icons/216242/home_icon#size=128), [New tab](http://iconmonstr.com/photo-camera-8/), [Profile tab](https://thenounproject.com/search/?q=person&i=961), [Camera button](https://www.iconfinder.com/icons/115759/camera_icon#size=128), [Camera roll button](https://www.iconfinder.com/icons/290130/camera_image_photo_photography_photos_icon#size=128)
